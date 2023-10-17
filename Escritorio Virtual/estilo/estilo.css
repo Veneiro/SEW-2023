@@ -2,6 +2,88 @@
 * Mateo Rico Iglesias
 * UO277172
 */
-  
-  
-  
+
+/* Especificidad 001*/
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #333652;
+    color:#E9EAEC;
+    padding: 1em;
+}
+
+header {
+    background-color: #282a3f;
+    border-radius: 2em;
+    padding: 1em;
+    align-items: center;
+    justify-content: space-around;
+}
+
+/* Especificidad 003*/
+header nav a {
+    font-weight: bold;
+    color: #90ADC6;
+    border-style: solid;
+    border-radius: 0.6em;
+    padding:0.3em;
+}
+
+a{
+    color: #F9EAC2;
+    font-style: italic;
+}
+
+/* Especificidad 001*/
+h1, h2, h3 {
+    font-style: italic;
+    color: #FAD02C;
+}
+
+/* Especificidad 001*/
+h1 {
+    color: #E1C340;
+    font-size: 3em;
+}
+
+/* Especificidad 001*/
+h2 {
+    font-size: 2em;
+}
+
+/* Especificidad 001*/
+h3 {
+    font-size: 1.5em;
+}
+
+/* Especificidad 002*/
+ul li, dd{
+    font-style: italic;
+}
+
+dt {
+    font-weight: bold;
+}
+
+table, table caption {
+    background-color: #282a3f;
+    border-style: solid;
+    border-color: #E9EAEC;
+}  
+
+table tr th{
+    border-style: solid;
+    border-color: #E9EAEC;
+    border-width: 0.1em;
+}
+
+table tr td {
+    background-color: #90ADC6;
+    color:#282a3f;
+    font-style: italic;
+    text-align: center;
+}
+
+video {
+    width:100%;
+    height: auto;
+}

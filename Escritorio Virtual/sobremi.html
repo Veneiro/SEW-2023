@@ -12,173 +12,174 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" type="text/css" href="estilo/estilo.css" />
+    <link rel="stylesheet" type="text/css" href="estilo/layout.css" />
     <link rel="icon" href="multimedia/imagenes/favicon.ico" />
 </head>
 
-<header>
-    <h1>Escritorio Virtual</h1>
-    <nav>
-        <a href="./index.html" accesskey="P" tabindex="1">Página Principal</a>
-        <a href="./sobremi.html" accesskey="S" tabindex="7">Sobre Mí</a>
-        <a href="./noticias.html" accesskey="N" tabindex="2">Noticias</a>
-        <a href="./agenda.html" accesskey="A" tabindex="6">Agenda</a>
-        <a href="./meteorologia.html" accesskey="M" tabindex="4">Meteorología</a>
-        <a href="./viajes.html" accesskey="V" tabindex="3">Viajes</a>
-        <a href="./juegos.html" accesskey="J" tabindex="5">Juegos</a>
-    </nav>
-</header>
-
 <body>
-    <section>
-        <!-- Datos con el contenidos que aparece en el navegador -->
-        <h2>Sobre Mí</h2>
-        <p>En Desarrollo</p>
-        <h3>Nombre</h3>
-        <p>Mateo</p>
-        <h3>Apellidos</h3>
-        <p>Rico Iglesias</p>
-        <h3>UO</h3>
-        <p>UO277172</p>
-        <h3>Correo Electrónico</h3>
-        <p>UO277172@uniovi.es</p>
-        <h3>Presentación</h3>
-        <p>Me llamo Mateo Rico Iglesias, estudio Ingeniería Informática en la Universidad de Oviedo.</p>
-        <h3>Mi Foto</h3>
-        <picture>
-            <source srcset="yo-moviles.png" media="(max-width: 465px)">
-            <source srcset="yo-tablets.png" media="(max-width: 799)">
-            <source srcset="yo-monitores.png" media="(max-width: 800px)">
-            <img src="yo.png" alt="Mi foto personal">
-        </picture>
+    <header>
+        <h1>Escritorio Virtual</h1>
+        <nav>
+            <a href="./index.html" accesskey="P" tabindex="1">Página Principal</a>
+            <a href="./sobremi.html" accesskey="S" tabindex="7">Sobre Mí</a>
+            <a href="./noticias.html" accesskey="N" tabindex="2">Noticias</a>
+            <a href="./agenda.html" accesskey="A" tabindex="6">Agenda</a>
+            <a href="./meteorologia.html" accesskey="M" tabindex="4">Meteorología</a>
+            <a href="./viajes.html" accesskey="V" tabindex="3">Viajes</a>
+            <a href="./juegos.html" accesskey="J" tabindex="5">Juegos</a>
+        </nav>
+    </header>
+    <section> <!--Esta sección contiene información relacionada a mí-->
+        <section> <!--Información Bássica acerca de mí-->
+            <h2>Sobre Mí</h2>
+            <p>Nombre: Mateo</p>
+            <p>Apellidos: Rico Iglesias</p>
+            <p>UO: UO277172</p>
+            <p>Correo Electrónico: UO277172@uniovi.es</p>
+            <p>Presentación: Me llamo Mateo Rico Iglesias, estudio Ingeniería Informática en la Universidad de Oviedo.
+            </p>
+            <picture>
+                <source srcset="multimedia/imagenes/yo_moviles.png" media="(max-width: 500px)">
+                <source srcset="multimedia/imagenes/yo_tablets.png" media="(max-width: 800px)">
+                <source srcset="multimedia/imagenes/yo_monitores.png" media="(max-width: 1920px)">
+                <img src="multimedia/imagenes/yo.png" alt="Mi foto personal">
+            </picture>
+        </section>
+        <section> <!--Algunas de mis aficiones-->
+            <h3>Aficiones</h3>
+            <ul>
+                <li>Música</li>
+                <li>Videojuegos</li>
+                <li>Edición de Video</li>
+                <li>Dibujo</li>
+                <li>Fotografía</li>
+            </ul>
+        </section>
+        <section> <!--Algunos de mis grupos/cantantes favoritos-->
+            <h3>Grupos Musicales y/o cantantes favoritos</h3>
+            <ol>
+                <li>The Warning</li>
+                <ul>
+                    <li>Queen of the Murder Scene</li>
+                </ul>
+                <li>Frank Sinatra</li>
+                <ul>
+                    <li>That's Life</li>
+                </ul>
+                <li>BTO</li>
+                <ul>
+                    <li>Takin' Care Of Bussines</li>
+                </ul>
+                <li>Mötley Crue</li>
+                <ul>
+                    <li>Kickstart my Heart</li>
+                </ul>
+                <li>Glenn Miller</li>
+                <ul>
+                    <li>In the Mood</li>
+                </ul>
+            </ol>
 
-        <h3>Aficiones</h3>
-        <ul>
-            <li>Música</li>
-            <li>Videojuegos</li>
-            <li>Edición de Video</li>
-            <li>Dibujo</li>
-            <li>Fotografía</li>
-        </ul>
-
-        <h3>Grupos Musicales y/o cantantes favoritos</h3>
-        <ol>
-            <li>The Warning</li>
-            <ul>
-                <li>Queen of the Murder Scene</li>
-                <picture>
-                    <source srcset="yo-moviles.png" media="(max-width: 465px)">
-                    <source srcset="yo-tablets.png" media="(max-width: 799)">
-                    <source srcset="yo-monitores.png" media="(max-width: 800px)">
-                    <img src="yo.png" alt="Foto LP">
-                </picture>
-                <source src='audio.mp3' type='audio/mp3; codecs=wav, mp3'>
-                <source src='video.mp4' type='video/mp4; codecs="mp4, webm"'>
-            </ul>
-            <li>Frank Sinatra</li>
-            <ul>
-                <li>That's Life</li>
-                <picture>
-                    <source srcset="yo-moviles.png" media="(max-width: 465px)">
-                    <source srcset="yo-tablets.png" media="(max-width: 799)">
-                    <source srcset="yo-monitores.png" media="(max-width: 800px)">
-                    <img src="yo.png" alt="Foto LP">
-                </picture>
-                <source src='audio.mp3' type='audio/mp3; codecs=wav, mp3'>
-                <source src='video.mp4' type='video/mp4; codecs="mp4, webm"'>
-            </ul>
-            <li>BTO</li>
-            <ul>
-                <li>Takin' Care Of Bussines</li>
-                <picture>
-                    <source srcset="yo-moviles.png" media="(max-width: 465px)">
-                    <source srcset="yo-tablets.png" media="(max-width: 799)">
-                    <source srcset="yo-monitores.png" media="(max-width: 800px)">
-                    <img src="yo.png" alt="Foto LP">
-                </picture>
-                <source src='audio.mp3' type='audio/mp3; codecs=wav, mp3'>
-                <source src='video.mp4' type='video/mp4; codecs="mp4, webm"'>
-            </ul>
-            <li>Mötley Crue</li>
-            <ul>
-                <li>Kickstart my Heart</li>
-                <picture>
-                    <source srcset="yo-moviles.png" media="(max-width: 465px)">
-                    <source srcset="yo-tablets.png" media="(max-width: 799)">
-                    <source srcset="yo-monitores.png" media="(max-width: 800px)">
-                    <img src="yo.png" alt="Foto LP">
-                </picture>
-                <source src='audio.mp3' type='audio/mp3; codecs=wav, mp3'>
-                <source src='video.mp4' type='video/mp4; codecs="mp4, webm"'>
-            </ul>
-            <li>Glenn Miller</li>
-            <ul>
-                <li></li>
-                <picture>
-                    <source srcset="yo-moviles.png" media="(max-width: 465px)">
-                    <source srcset="yo-tablets.png" media="(max-width: 799)">
-                    <source srcset="yo-monitores.png" media="(max-width: 800px)">
-                    <img src="yo.png" alt="Foto LP">
-                </picture>
-                <source src='audio.mp3' type='audio/mp3; codecs=wav, mp3'>
-                <source src='video.mp4' type='video/mp4; codecs="mp4, webm"'>
-            </ul>
-        </ol>
-
-        <h3>Asignaturas favoritas</h3>
-        <dl>
-            <dt>Software para Robots</dt>
-            <dd>En esta asignaturas se trata todo el tema de la robótica y como está influyendo en nuestra vida diaria.
-            </dd>
-            <dt>Software de entretenimiento y videojuegos</dt>
-            <dd>En esta asignatura se tratan los temas relacionados con la creación y el desarrollo de videojuegos</dd>
-            <dt>Informática Audiovisual</dt>
-            <dd>En esta asignatura se tratan temas relacionados con temas audiovisuales como las exposiciones, edición
-                de video, arte digital...</dd>
-            <dt>Comunicación Persona-Máquina</dt>
-            <dd>En esta asignatura se trata todo lo relacionado con las interfaces de usuario y como los propio usuarios
-                interactúan con las mismas</dd>
-            <dt></dt>
-            <dd></dd>
-        </dl>
+            <p>Aquí tengo algo de contenido multimedia acerca del primero de los grupos que he mencionado, he escogido
+                el primer grupo mencionado anteriormente, en este caso es <a href="https://www.thewarningband.com">The
+                    Warning</a>, y también tienen un <a
+                    href="https://www.youtube.com/channel/UCeZHVOA5rP9rHoa7zKCx7kQ">canal de Youtube</a> donde se pueden
+                ver más de sus canciones. Aquí tenéis tanto una imagen del album, como el audio de la canción y un video
+                relacionado con la canción mencionada anteriormente.</p>
+            <picture>
+                <source srcset="multimedia/imagenes/qoms_moviles.png" media="(max-width: 500px)">
+                <source srcset="multimedia/imagenes/qoms_tablets.png" media="(max-width: 800px)">
+                <source srcset="multimedia/imagenes/qoms_monitores.png" media="(max-width: 1920px)">
+                <img src="multimedia/imagenes/qoms.png" alt="Foto LP Queen of the Murder Scene">
+            </picture>
+            <audio controls>
+                <source src='multimedia/audios/qoms.mp3' type='audio/mp3;codec="mp3"'>
+                <source src='multimedia/audios/qoms.wav' type='audio/wav;codec="wav"'>
+                <p>Audio no soportado</p>
+            </audio>
+            <video controls>
+                <source src='multimedia/videos/qoms.mp4' type='video/mp4;codec="mp4"'>
+                <source src='multimedia/videos/qoms.webm' type='video/webm;codec="webm"'>
+                <p>Tu navegador no soporta ninguno de los codecs de video disponibles</p>
+            </video>
+        </section>
+        <section><!--Algunas de mis asignaturas favoritas-->
+            <h3>Asignaturas favoritas</h3>
+            <dl>
+                <dt>Software para Robots</dt>
+                <dd>En esta asignaturas se trata todo el tema de la robótica y como está influyendo en nuestra vida
+                    diaria.
+                </dd>
+                <dt>Software de entretenimiento y videojuegos</dt>
+                <dd>En esta asignatura se tratan los temas relacionados con la creación y el desarrollo de videojuegos
+                </dd>
+                <dt>Informática Audiovisual</dt>
+                <dd>En esta asignatura se tratan temas relacionados con temas audiovisuales como las exposiciones,
+                    edición
+                    de video, arte digital...</dd>
+                <dt>Comunicación Persona-Máquina</dt>
+                <dd>En esta asignatura se trata todo lo relacionado con las interfaces de usuario y como los propio
+                    usuarios
+                    interactúan con las mismas</dd>
+                <dt>Ingeniería de Requisitos</dt>
+                <dd>En esta asignatura aprendemos el proceso que se sigue para obtener toda la información y requisitos
+                    acerca de un proyecto que vamos a desarrollar</dd>
+            </dl>
+        </section>
     </section>
-    <section>
+    <aside>
         <table>
             <caption>Temperaturas medias por año</caption>
             <thead>
                 <tr>
-                    <th>Año</th>
-                    <th>Temperatura</th>
+                    <th scope="col" id="año">Año</th>
+                    <th scope="col" id="temperatura">Temperatura</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td> 2023 </td>
-                    <td> 23 ºC </td>
+                    <th scope="row" id="año2023" headers="año"> 2023 </th>
+                    <td headers="año2023 temperatura"> 23 ºC </td>
                 </tr>
                 <tr>
-                    <td> 2022 </td>
-                    <td> 15 ºC </td>
+                    <th scope="row" id="año2022" headers="año"> 2022 </th>
+                    <td headers="año2022 temperatura"> 15 ºC </td>
                 </tr>
                 <tr>
-                    <td> 2021 </td>
-                    <td> </td>
+                    <th scope="row" id="año2021" headers="año"> 2021 </th>
+                    <td headers="año2021 temperatura"> 16 ºC</td>
                 </tr>
                 <tr>
-                    <td> 2020 </td>
-                    <td> </td>
+                    <th scope="row" id="año2020" headers="año"> 2020 </th>
+                    <td headers="año2020 temperatura"> 14 ºC</td>
                 </tr>
                 <tr>
-                    <td> 2019 </td>
-                    <td> </td>
+                    <th scope="row" id="año2019" headers="año"> 2019 </th>
+                    <td headers="año2019 temperatura"> 20 ºC</td>
+                </tr>
+                <tr>
+                    <th scope="row" id="año2018" headers="año"> 2018 </th>
+                    <td headers="año2018 temperatura"> 18 ºC</td>
+                </tr>
+                <tr>
+                    <th scope="row" id="año2017" headers="año"> 2017 </th>
+                    <td headers="año2017 temperatura"> 14 ºC</td>
+                </tr>
+                <tr>
+                    <th scope="row" id="año2016" headers="año"> 2016 </th>
+                    <td headers="año2016 temperatura"> 24 ºC</td>
+                </tr>
+                <tr>
+                    <th scope="row" id="año2015" headers="año"> 2015 </th>
+                    <td headers="año2015 temperatura"> 21 ºC</td>
+                </tr>
+                <tr>
+                    <th scope="row" id="año2014" headers="año"> 2014 </th>
+                    <td headers="año2014 temperatura"> 17 ºC</td>
                 </tr>
             </tbody>
         </table>
-    </section>
+    </aside>
 </body>
-<footer>
-    <h3>Enlaces Relacionados</h3>
-    <a href="https://www.youtube.com/@veneiro">Youtube</a>
-    <a href="https://www.twitter.com/Veneiro4738">Twitter</a>
-</footer>
 
 </html>
