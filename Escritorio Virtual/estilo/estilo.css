@@ -124,17 +124,12 @@ section img{
     width:80%;
     height:auto;
 }
-[data-revealed=true] {
+
+[data-state=flip], [data-state=revealed] {
     transform: rotateY(180deg);
 }
 
-[data-revealed=false] {
-    transform: rotateY(0deg);
-}
-
 article {
-    width: 10em;
-    height:10em;
     position: relative;
     background-color: blue;
     transform-style: preserve-3d;
@@ -144,7 +139,6 @@ article {
 article img,
 article p {
     position: absolute;
-    padding: 0;
     margin: 0;
     left: 0;
     top: 0;
@@ -156,4 +150,6 @@ article p {
 article img {
     transform: rotateY(180deg);
     transform-style: preserve-3d;
+    height: 100%;
+    width: 100%;
 }

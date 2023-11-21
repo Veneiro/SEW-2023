@@ -53,4 +53,5 @@ section section article {
     width: 10em;
     height: 10em;
     text-align: center;
+    flex: 1 0 20%;
 }

@@ -66,7 +66,7 @@ class Memoria {
             a.addEventListener('click', this.flip.bind(this));
             a.innerHTML = '<p>Memory Card</p>';
             a.innerHTML += "<img src='" + element.source + "'>";
-            a.setAttribute('data-revealed', 'false');
+            a.setAttribute('data-state', 'unflip');
             a.setAttribute('data-type', element.element);
             section.append(a);
         }
@@ -74,12 +74,12 @@ class Memoria {
 
     flip(ev) {
         const card = ev.target.parentNode;
-        if (this.firstCard == null && card.getAttribute('data-revealed') == "false") {
+        if (this.firstCard == null && card.getAttribute('data-state') == "unflip") {
             this.firstCard = card;
-            card.setAttribute('data-revealed', "true");
-        } else if (this.secondCard == null && card.getAttribute('data-revealed') == "false"){
+            card.setAttribute('data-state', "flip");
+        } else if (this.secondCard == null && card.getAttribute('data-state') == "unflip"){
             this.secondCard = card;
-            card.setAttribute('data-revealed', "true");
+            card.setAttribute('data-state', "flip");
             this.checkForMath();
         }
     }
@@ -92,9 +92,11 @@ class Memoria {
     }
 
     unflipCards() {
-        document.getElementsByName("article").forEach(element => {
-            element.setAttribute('data-revealed', "false");
-        });
+        setTimeout(() => {
+            this.firstCard.setAttribute('data-state', "unflip");
+            this.secondCard.setAttribute('data-state', "unflip");
+            this.resetBoard();
+        }, 1000);
     }
 
     resetBoard() {
@@ -108,21 +110,16 @@ class Memoria {
         const typeFirstCard = this.firstCard.getAttribute('data-type');
         const typeSecondCard = this.secondCard.getAttribute('data-type');
         if (typeFirstCard != typeSecondCard) {
-            //this.unflipCards();
-            setTimeout(() => {
-                this.firstCard.setAttribute('data-revealed', "false");
-                this.secondCard.setAttribute('data-revealed', "false");
-                this.resetBoard();
-            }, 1000);
-        }
-        else {
+            this.unflipCards();
+        } else {
+            this.disableCards();
             this.resetBoard();
         }
     }
 
     disableCards() {
-        this.firstCard.setAttribute('data-revealed', "true");
-        this.secondCard.setAttribute('data-revealed', "true");
+        this.firstCard.setAttribute('data-state', "revealed");
+        this.secondCard.setAttribute('data-state', "revealed");
         this.resetBoard();
     }
 }
