@@ -14,6 +14,37 @@
     <link rel="stylesheet" type="text/css" href="estilo/estilo.css" />
     <link rel="stylesheet" type="text/css" href="estilo/layout.css" />
     <link rel="icon" href="multimedia/imagenes/favicon.ico"/>
+
+    <style>
+        .carta {
+            width: 10em;
+            height:10em;
+            position: relative;
+            background-color: blue;
+        }
+        .carta img,
+        .carta p {
+            position: absolute;
+            padding: 0;
+            margin: 0;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            backface-visibility: hidden;
+        }
+        .carta img {
+            transform: rotateY(180deg);
+            transform-style: preserve-3d;
+        }
+        .carta.vuelta {
+            transform: rotateY(180deg);
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+
+    </style>
+
 </head>
 <body>
     <header>
@@ -38,6 +69,12 @@
     <section>
         <h3>Juego de Memoria</h3>
         <section></section>
+
+        <div id="c1" class="carta" onclick="document.getElementById('c1').setAttribute('class', 'carta vuelta')">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/W3C_icon.svg">
+            <p>CARTA</p>                
+        </div>
+
         <script src="./js/memoria.js"></script>
     </section>
     <!--Con atributo data se hace el flip de las cartas-->

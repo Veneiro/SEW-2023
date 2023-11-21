@@ -115,3 +115,45 @@ audio {
     width: 100%;
     padding-top: 1.5em;
 }
+
+[data-oculto = false]{
+    background-color: red;
+}
+
+section img{
+    width:80%;
+    height:auto;
+}
+[data-revealed=true] {
+    transform: rotateY(180deg);
+}
+
+[data-revealed=false] {
+    transform: rotateY(0deg);
+}
+
+article {
+    width: 10em;
+    height:10em;
+    position: relative;
+    background-color: blue;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+}
+
+article img,
+article p {
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    backface-visibility: hidden;
+}
+
+article img {
+    transform: rotateY(180deg);
+    transform-style: preserve-3d;
+}

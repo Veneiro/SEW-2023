@@ -65,51 +65,68 @@ class Memoria {
             const a = document.createElement('article');
             a.addEventListener('click', this.flip.bind(this));
             a.innerHTML = '<p>Memory Card</p>';
-            a.setAttribute('data-oculto', 'true');
-            a.setAttribute('data-type', element.element)
+            a.innerHTML += "<img src='" + element.source + "'>";
+            a.setAttribute('data-revealed', 'false');
+            a.setAttribute('data-type', element.element);
             section.append(a);
         }
     }
 
-    flip(ev){
-        if(this.firstCard == null){
-            this.firstCard = ev.target;
-        } else {
-            this.secondCard = ev.target;
+    flip(ev) {
+        const card = ev.target.parentNode;
+        if (this.firstCard == null && card.getAttribute('data-revealed') == "false") {
+            this.firstCard = card;
+            card.setAttribute('data-revealed', "true");
+        } else if (this.secondCard == null && card.getAttribute('data-revealed') == "false"){
+            this.secondCard = card;
+            card.setAttribute('data-revealed', "true");
+            this.checkForMath();
         }
     }
 
-    shuffleElements(){
-        this.elements.shuffleElements();
+    shuffleElements() {
+        for (let i = this.elements.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [this.elements[i], this.elements[j]] = [this.elements[j], this.elements[i]];
+        }
     }
 
-    unflipCards(){
+    unflipCards() {
         document.getElementsByName("article").forEach(element => {
-            element.setAttribute('data-oculto', "false");
+            element.setAttribute('data-revealed', "false");
         });
     }
 
-    resetBoard(){
+    resetBoard() {
         this.hasFlippedCard = false;
         this.lockBoard = false;
         this.firstCard = null;
         this.secondCard = null;
     }
 
-    checkForMath(){
-
-        const typeFirstCard  = this.firstCard.getAttribute('data-type');
-        const typeSecondCard  = this.secondCard.getAttribute('data-type');
-
-        if(this.firstCard.element.equals(this.secondCard.element)){
-            this.unflipCards();
+    checkForMath() {
+        const typeFirstCard = this.firstCard.getAttribute('data-type');
+        const typeSecondCard = this.secondCard.getAttribute('data-type');
+        if (typeFirstCard != typeSecondCard) {
+            //this.unflipCards();
+            setTimeout(() => {
+                this.firstCard.setAttribute('data-revealed', "false");
+                this.secondCard.setAttribute('data-revealed', "false");
+                this.resetBoard();
+            }, 1000);
+        }
+        else {
+            this.resetBoard();
         }
     }
-    
-    disableCards(){
+
+    disableCards() {
+        this.firstCard.setAttribute('data-revealed', "true");
+        this.secondCard.setAttribute('data-revealed', "true");
         this.resetBoard();
     }
 }
 
 var memoria = new Memoria();
+this.memoria.shuffleElements();
 this.memoria.createElements();
