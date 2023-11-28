@@ -1,0 +1,30 @@
+p {
+    border:0.1em;
+    border-style: solid;
+    height: 4em;
+    text-align: center;
+    margin: 0;
+}
+
+main {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    border:0.3em;
+    border-style: solid;
+}
+
+p:nth-child(3n) {
+    border-right:0.3em solid;
+}
+
+p:nth-child(n+19):nth-child(-n+27){
+    border-bottom:0.3em solid;
+}
+
+p:nth-child(n+46):nth-child(-n+54){
+    border-bottom:0.3em solid;
+}
+
+[data-state = "clicked"]{
+    border-color: red;
+}
