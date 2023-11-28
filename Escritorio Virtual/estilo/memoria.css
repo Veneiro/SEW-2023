@@ -1,0 +1,37 @@
+[data-oculto = false]{
+    background-color: red;
+}
+
+section img{
+    width:80%;
+    height:auto;
+}
+
+[data-state=flip], [data-state=revealed] {
+    transform: rotateY(180deg);
+}
+
+article {
+    position: relative;
+    background-color: blue;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+}
+
+article img,
+article h3 {
+    position: absolute;
+    margin: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    backface-visibility: hidden;
+}
+
+article img {
+    transform: rotateY(180deg);
+    transform-style: preserve-3d;
+    height: 100%;
+    width: 100%;
+}
