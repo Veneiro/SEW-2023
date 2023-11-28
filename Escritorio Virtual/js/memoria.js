@@ -64,10 +64,10 @@ class Memoria {
         for (const element of this.elements) {
             const a = document.createElement('article');
             a.addEventListener('click', this.flip.bind(this));
-            a.innerHTML = '<p>Memory Card</p>';
-            a.innerHTML += "<img src='" + element.source + "'>";
+            a.innerHTML = '<h3>Memory Card</h3>';
+            a.innerHTML += "<img src='" + element.source + "' alt='" + element.element +"'>";
             a.setAttribute('data-state', 'unflip');
-            a.setAttribute('data-type', element.element);
+            a.setAttribute('data-element', element.element);
             section.append(a);
         }
     }
@@ -107,8 +107,8 @@ class Memoria {
     }
 
     checkForMath() {
-        const typeFirstCard = this.firstCard.getAttribute('data-type');
-        const typeSecondCard = this.secondCard.getAttribute('data-type');
+        const typeFirstCard = this.firstCard.getAttribute('data-element');
+        const typeSecondCard = this.secondCard.getAttribute('data-element');
         if (typeFirstCard != typeSecondCard) {
             this.unflipCards();
         } else {
