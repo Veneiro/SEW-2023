@@ -68,16 +68,6 @@ ul li, dd {
 }
 
 /* Especificidad 001 */
-ul li:nth-child(3) {
-    color: red;
-}
-
-/*
-li { list-style-type: lower-roman; }
-li::marker {font-weight:bold; }
-*/
-
-/* Especificidad 001 */
 dt {
     font-weight: bold;
 }

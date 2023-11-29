@@ -39,6 +39,10 @@ nav {
         display: flex;
         justify-content: center;
     }
+
+    section section article {
+        flex: 1 0 20%;
+    }
 }
 
 section section  {
@@ -46,12 +50,3 @@ section section  {
     flex-flow: wrap;
 }
 
-section section article {
-    background-color: blue;
-    border-radius: 1em;
-    margin: 2%;
-    width: 10em;
-    height: 10em;
-    text-align: center;
-    flex: 1 0 20%;
-}
