@@ -6,9 +6,9 @@ class Pais {
     this.poblacion = poblacion;
 
     this.apikey = "ff03cf1de5d47b151a031ab0ff83134d";
-    this.ciudad = "Oviedo";
-    this.codigoPais = "ES";
-    this.unidades = "&units=metric";
+    this.ciudad = "Bruselas";
+    this.codigoPais = "BEL";
+    this.unidades = "metric";
     this.idioma = "&lang=es";
     this.cnt = 5;
     this.url =
@@ -55,56 +55,24 @@ class Pais {
       method: "GET",
       success: function (datos) {
         $("pre").text(JSON.stringify(datos, null, 2)); //muestra el json en un elemento pre
-        console.log(this.url)
-        console.log(datos)
-        /**
+        
         //PresentaciÃ³n de los datos contenidos en JSON
         var stringDatos = "<h2>Pronóstico para 5 días</h2>";
-        stringDatos += "<ul><li>Ciudad: " + datos.name + "</li>";
-        stringDatos += "<li>PaÃ­s: " + datos.sys.country + "</li>";
-        stringDatos += "<li>Latitud: " + datos.coord.lat + " grados</li>";
-        stringDatos += "<li>Longitud: " + datos.coord.lon + " grados</li>";
-        stringDatos +=
-          "<li>Temperatura: " + datos.main.temp + " grados Celsius</li>";
-        stringDatos +=
-          "<li>Temperatura mÃ¡xima: " +
-          datos.main.temp_max +
-          " grados Celsius</li>";
-        stringDatos +=
-          "<li>Temperatura mÃ­nima: " +
-          datos.main.temp_min +
-          " grados Celsius</li>";
-        stringDatos +=
-          "<li>PresiÃ³n: " + datos.main.pressure + " milibares</li>";
-        stringDatos += "<li>Humedad: " + datos.main.humidity + " %</li>";
-        stringDatos +=
-          "<li>Amanece a las: " +
-          new Date(datos.sys.sunrise * 1000).toLocaleTimeString() +
-          "</li>";
-        stringDatos +=
-          "<li>Oscurece a las: " +
-          new Date(datos.sys.sunset * 1000).toLocaleTimeString() +
-          "</li>";
-        stringDatos +=
-          "<li>DirecciÃ³n del viento: " + datos.wind.deg + " grados</li>";
-        stringDatos +=
-          "<li>Velocidad del viento: " +
-          datos.wind.speed +
-          " metros/segundo</li>";
-        stringDatos +=
-          "<li>Hora de la medida: " +
-          new Date(datos.dt * 1000).toLocaleTimeString() +
-          "</li>";
-        stringDatos +=
-          "<li>Fecha de la medida: " +
-          new Date(datos.dt * 1000).toLocaleDateString() +
-          "</li>";
-        stringDatos +=
-          "<li>DescripciÃ³n: " + datos.weather[0].description + "</li>";
-        stringDatos += "<li>Visibilidad: " + datos.visibility + " metros</li>";
-        stringDatos += "<li>Nubosidad: " + datos.clouds.all + " %</li></ul>";
+        stringDatos += "<ul><li>Ciudad: " + datos.city.name + "</li>";
+        datos.list.forEach(day => {
+          stringDatos += "<li>Máxima "+ day.main.temp_max + " Cº</li>";
+          stringDatos += "<li>Mínima "+ day.main.temp_min + " Cº</li>";
+          stringDatos += "<li>Humedad "+ day.main.humidity + " %</li>";
+          if(day.rain != undefined){
+            stringDatos += "<li>l/m2 "+ day.rain["3h"] + "</li>";
+          } else {
+            stringDatos += "<li>l/m2 0</li>";
+          }
+          stringDatos += "<li>"+ day.weather[0].description + "</li>";
+          stringDatos += "<img src='http://openweathermap.org/img/w/" + day.weather[0].icon + ".png'/>";
+        });
+        stringDatos += "</ul>";
         pais.crearElemento("p",stringDatos, "body");
-         */
       },
       error: function () {
         $("h3").html(
@@ -123,7 +91,7 @@ class Pais {
     // El elemnto se coloca antes del elemnto 'insertarAntesDe'
     var elemento = document.createElement(tipoElemento);
     elemento.innerHTML = texto;
-    $(insertarAntesDe).append(elemento);
+    $(insertarAntesDe).append(texto);
   }
 
   verJSON() {
@@ -149,12 +117,12 @@ pais.setAtributosSecundarios(
 "50.846667, 4.351667",
 "Catolicismo"
 );
-pais.crearElemento("p",  pais.getNombreYCapital(), "body");
-pais.crearElemento("article", pais.getAtributosSecundarios(), "body");
+//pais.crearElemento("p",  pais.getNombreYCapital(), "body");
+//pais.crearElemento("article", pais.getAtributosSecundarios(), "body");
 
 pais.cargarDatos();
 //document.write("<p>" + pais.getNombreYCapital() + "</p>");
 //document.write("<article>" + pais.getAtributosSecundarios() + "</article>");
-pais.insertCoordCapital();
+//pais.insertCoordCapital();
 
 
