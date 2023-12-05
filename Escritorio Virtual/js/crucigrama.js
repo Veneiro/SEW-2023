@@ -10,6 +10,8 @@ class Crucigrama {
 
     constructor() {
         this.board = new Array(this.filas).fill().map(_ => new Array(this.columnas).fill(0));
+        this.expression_row = true;
+        this.expresion_col = true;
     }
 
     start(dificultad) {
@@ -92,44 +94,60 @@ class Crucigrama {
         if (this.keySelected != null) {
             switch (tecla) {
                 case "1":
-                    this.introduceNumber(1);
+                    this.introduceElement(1);
                     break;
                 case "2":
-                    this.introduceNumber(2);
+                    this.introduceElement(2);
                     break;
                 case "3":
-                    this.introduceNumber(3);
+                    this.introduceElement(3);
                     break;
                 case "4":
-                    this.introduceNumber(4);
+                    this.introduceElement(4);
                     break;
                 case "5":
-                    this.introduceNumber(5);
+                    this.introduceElement(5);
                     break;
                 case "6":
-                    this.introduceNumber(6);
+                    this.introduceElement(6);
                     break;
                 case "7":
-                    this.introduceNumber(7);
+                    this.introduceElement(7);
                     break;
                 case "8":
-                    this.introduceNumber(8);
+                    this.introduceElement(8);
                     break;
                 case "9":
-                    this.introduceNumber(9);
+                    this.introduceElement(9);
+                    break;
+                case "+":
+                    this.introduceElement("+");
+                    break;
+                case "-":
+                    this.introduceElement("-");
+                    break;
+                case "*":
+                    this.introduceElement("*");
+                    break;
+                case "/":
+                    this.introduceElement("/");
                     break;
             }
+        } else{
+            alert("Debes pulsar una casilla antes de introducir un valor");
         }
     }
 
-    introduceNumber(number) {
-        
+    introduceElement(number) {
+        if (this.keySelected.getAttribute("data-state") == "clicked") {
+            this.keySelected.innerText = number;
+        }
     }
 
-    check_win_condition(){
+    check_win_condition() {
         for (let i = 0; i < this.filas; i++) {
             for (let j = 0; j < this.columnas; j++) {
-                if(this.board[i][j] == 0){
+                if (this.board[i][j] == 0) {
                     return false;
                 }
             }
@@ -138,28 +156,25 @@ class Crucigrama {
         return true;
     }
 
-    calculate_date_difference(){
-        let time_spend = this.end_time - this.init_time;
-        console.log(time_spend)
+    calculate_date_difference() {
+        let time_spend = new Date(this.end_time - this.init_time);
+        return time_spend.getUTCHours() + ":" + time_spend.getUTCMinutes() + ":" + time_spend.getUTCSeconds();
     }
 
-    test(){
-        this.init_time = new Date(hours, minutes, seconds);
+    test() {
+        this.init_time = new Date();
         this.sleep(1000);
-        this.end_time = new Date(hours, minutes, seconds);
-        let time_spend = this.end_time - this.init_time;
-        console.log(this.init_time);
-        console.log(this.end_time);
-        console.log(time_spend);
+        this.end_time = new Date();
+        let time_spend = new Date(this.end_time - this.init_time);
+        console.log(time_spend.getUTCHours() + ":" + time_spend.getUTCMinutes() + ":" + time_spend.getUTCSeconds())
     }
 
-    sleep(ms){
+    sleep(ms) {
         var esperarHasta = new Date().getTime() + ms;
-        while(new Date().getTime() < esperarHasta) continue;
+        while (new Date().getTime() < esperarHasta) continue;
     }
 }
 
 var crucigrama = new Crucigrama();
 crucigrama.start("medio");
 crucigrama.paintMathword();
-crucigrama.test();
