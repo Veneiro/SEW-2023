@@ -1,0 +1,20 @@
+main{
+    display:grid;
+    grid-template-columns: repeat(9, 1fr);
+}
+p{
+    margin:0em;
+    height:2em;
+    border-width: 0.1em;
+    border-color: white;
+    border-style: solid;
+    text-align: center;
+}
+
+[data-state = "empty"]{
+    background-color: black;
+}
+
+[data-state = "clicked"]{
+    border-color: red;
+}
