@@ -7,6 +7,11 @@ class Crucigrama {
   boardSinInicializar;
   keySelected;
 
+  first_number;
+  second_number;
+  expresion;
+  result;
+
   constructor() {
     this.board = new Array(this.filas)
       .fill()
@@ -153,23 +158,73 @@ class Crucigrama {
 
       const rowIndex = Math.floor(selectedIndex / this.columnas);
       const colIndex = selectedIndex % this.columnas;
-      if (this.check(rowIndex, colIndex)) {
+
+      if (this.checkRow(rowIndex, colIndex, number)) {
         this.keySelected.innerHTML = number;
         this.keySelected.setAttribute("data-state", "correct");
+        this.keySelected = undefined;
+        console.log(this.board);
+        if (this.check_win_condition()) {
+          alert("YOU WIN!!!");
+        }
+      } else if (this.checkColumn(rowIndex, colIndex, number)) {
+        this.keySelected.innerHTML = number;
+        this.keySelected.setAttribute("data-state", "correct");
+        this.keySelected = undefined;
+        console.log(this.board);
+        if (this.check_win_condition()) {
+          alert("YOU WIN!!!");
+        }
       } else {
         // Mensaje o acción cuando se violan las reglas
-        alert("Número no válido en esta posición.");
+        alert("Posición inválida o resultado incorrecto");
       }
     }
   }
 
-  check(rowIndex, colIndex) {
+  checkRow(rowIndex, colIndex, number) {
     let c = 1;
-    while(this.board[rowIndex][colIndex + c] != undefined){
-        if (this.board[rowIndex][colIndex + c] == "="){
-            return true;
+    while (this.board[rowIndex][colIndex + c] != undefined) {
+      if (this.board[rowIndex][colIndex + c] == "=") {
+        this.board[rowIndex][colIndex] = number;
+        this.first_number = this.board[rowIndex][colIndex + (c - 3)];
+        this.second_number = this.board[rowIndex][colIndex + (c - 1)];
+        this.expresion = this.board[rowIndex][colIndex + (c - 2)];
+        this.result = this.board[rowIndex][colIndex + (c + 1)];
+        let expresionArray = [
+          this.first_number,
+          this.expresion,
+          this.second_number,
+        ];
+        if (eval(expresionArray.join("")) == this.result) {
+          return true;
         }
-        c++;
+        return false;
+      }
+      c++;
+    }
+  }
+
+  checkColumn(rowIndex, colIndex, number) {
+    let c = 1;
+    while (this.board[rowIndex + c][colIndex] != undefined) {
+      if (this.board[rowIndex + c][colIndex] == "=") {
+        this.board[rowIndex][colIndex] = number;
+        this.first_number = this.board[rowIndex + (c - 3)][colIndex];
+        this.second_number = this.board[rowIndex + (c - 1)][colIndex];
+        this.expresion = this.board[rowIndex + (c - 2)][colIndex];
+        this.result = this.board[rowIndex + (c + 1)][colIndex];
+        let expresionArray = [
+          this.first_number,
+          this.expresion,
+          this.second_number,
+        ];
+        if (eval(expresionArray.join("")) == this.result) {
+          return true;
+        }
+        return false;
+      }
+      c++;
     }
     return false;
   }
