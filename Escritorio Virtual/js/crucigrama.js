@@ -1,178 +1,220 @@
 class Crucigrama {
+  board;
+  columnas = 9;
+  filas = 11;
+  init_time;
+  end_time;
+  boardSinInicializar;
+  keySelected;
 
-    board;
-    columnas = 9;
-    filas = 11;
-    init_time;
-    end_time;
-    boardSinInicializar;
-    keySelected;
+  constructor() {
+    this.board = new Array(this.filas)
+      .fill()
+      .map((_) => new Array(this.columnas).fill(0));
+    this.expression_row = true;
+    this.expresion_col = true;
+  }
 
-    constructor() {
-        this.board = new Array(this.filas).fill().map(_ => new Array(this.columnas).fill(0));
-        this.expression_row = true;
-        this.expresion_col = true;
+  start(dificultad) {
+    document
+      .querySelector("body")
+      .addEventListener("keydown", this.select.bind(this));
+    switch (dificultad) {
+      case "fácil":
+        dificultad =
+          "4,*,.,=,12,#,#,#,5,#,#,*,#,/,#,#,#,*,4,-,.,=,.,#,15,#,.,*,#,=,#,=,#,/,#,=,.,#,3,#,4,*,.,=,20,=,#,#,#,#,#,=,#,#,8,#,9,-,.,=,3,#,.,#,#,-,#,+,#,#,#,*,6,/,.,=,.,#,#,#,.,#,#,=,#,=,#,#,#,=,#,#,6,#,8,*,.,=,16";
+        this.rellenar_crucigrama(dificultad);
+        break;
+      case "medio":
+        dificultad =
+          "12,*,.,=,36,#,#,#,15,#,#,*,#,/,#,#,#,*,.,-,.,=,.,#,55,#,.,*,#,=,#,=,#,/,#,=,.,#,15,#,9,*,.,=,45,=,#,#,#,#,#,=,#,#,72,#,20,-,.,=,11,#,.,#,#,-,#,+,#,#,#,*,56,/,.,=,.,#,#,#,.,#,#,=,#,=,#,#,#,=,#,#,12,#,16,*,.,=,32";
+        this.rellenar_crucigrama(dificultad);
+        break;
+      case "difícil":
+        dificultad =
+          "4,.,.,=,36,#,#,#,25,#,#,*,#,.,#,#,#,.,.,-,.,=,.,#,15,#,.,*,#,=,#,=,#,.,#,=,.,#,18,#,6,*,.,=,30,=,#,#,#,#,#,=,#,#,56,#,9,-,.,=,3,#,.,#,#,*,#,+,#,#,#,*,20,.,.,=,18,#,#,#,.,#,#,=,#,=,#,#,#,=,#,#,18,#,24,.,.,=,72";
+        this.rellenar_crucigrama(dificultad);
+        break;
     }
+  }
 
-    start(dificultad) {
-        document
-            .querySelector("body")
-            .addEventListener("keydown", this.select.bind(this));
-        switch (dificultad) {
-            case "fácil":
-                dificultad = "4,*,.,=,12,#,#,#,5,#,#,*,#,/,#,#,#,*,4,-,.,=,.,#,15,#,.,*,#,=,#,=,#,/,#,=,.,#,3,#,4,*,.,=,20,=,#,#,#,#,#,=,#,#,8,#,9,-,.,=,3,#,.,#,#,-,#,+,#,#,#,*,6,/,.,=,.,#,#,#,.,#,#,=,#,=,#,#,#,=,#,#,6,#,8,*,.,=,16";
-                this.rellenar_crucigrama(dificultad);
-                break;
-            case "medio":
-                dificultad = "12,*,.,=,36,#,#,#,15,#,#,*,#,/,#,#,#,*,.,-,.,=,.,#,55,#,.,*,#,=,#,=,#,/,#,=,.,#,15,#,9,*,.,=,45,=,#,#,#,#,#,=,#,#,72,#,20,-,.,=,11,#,.,#,#,-,#,+,#,#,#,*,56,/,.,=,.,#,#,#,.,#,#,=,#,=,#,#,#,=,#,#,12,#,16,*,.,=,32";
-                this.rellenar_crucigrama(dificultad);
-                break;
-            case "difícil":
-                dificultad = "4,.,.,=,36,#,#,#,25,#,#,*,#,.,#,#,#,.,.,-,.,=,.,#,15,#,.,*,#,=,#,=,#,.,#,=,.,#,18,#,6,*,.,=,30,=,#,#,#,#,#,=,#,#,56,#,9,-,.,=,3,#,.,#,#,*,#,+,#,#,#,*,20,.,.,=,18,#,#,#,.,#,#,=,#,=,#,#,#,=,#,#,18,#,24,.,.,=,72";
-                this.rellenar_crucigrama(dificultad);
-                break;
+  rellenar_crucigrama(dificultad) {
+    let counter = 0;
+    for (let i = 0; i < this.filas; i++) {
+      for (let j = 0; j < this.columnas; j++) {
+        let dificultad_array = dificultad.split(",");
+        switch (dificultad_array[counter]) {
+          case ".":
+            this.board[i][j] = 0;
+            break;
+          case "#":
+            this.board[i][j] = -1;
+            break;
+          default:
+            this.board[i][j] = dificultad_array[counter];
+            break;
         }
+        counter++;
+      }
     }
+  }
 
-    rellenar_crucigrama(dificultad) {
-        let counter = 0;
-        for (let i = 0; i < this.filas; i++) {
-            for (let j = 0; j < this.columnas; j++) {
-                let dificultad_array = dificultad.split(',');
-                switch (dificultad_array[counter]) {
-                    case '.':
-                        this.board[i][j] = 0;
-                        break;
-                    case '#':
-                        this.board[i][j] = -1;
-                        break;
-                    default:
-                        this.board[i][j] = dificultad_array[counter];
-                        break;
+  paintMathword() {
+    for (let i = 0; i < this.filas; i++) {
+      for (let j = 0; j < this.columnas; j++) {
+        switch (this.board[i][j]) {
+          case 0:
+            let cell = document.createElement("p");
+            cell.setAttribute("data-state", " ");
+            cell.addEventListener("click", () => {
+              if (cell.getAttribute("data-state") == " ") {
+                if (this.keySelected != null) {
+                  this.keySelected.setAttribute("data-state", " ");
                 }
-                counter++;
-            }
+                this.keySelected = cell;
+                cell.setAttribute("data-state", "clicked");
+              }
+            });
+            $("section main").append(cell);
+            break;
+          case -1:
+            $("section main").append('<p data-state="empty"></p>');
+            break;
+          default:
+            $("section main").append(
+              '<p data-state="blocked">' + this.board[i][j] + "</p>"
+            );
+            break;
         }
+      }
     }
+    this.initialize_time();
+  }
 
-    paintMathword() {
-        for (let i = 0; i < this.filas; i++) {
-            for (let j = 0; j < this.columnas; j++) {
-                switch (this.board[i][j]) {
-                    case 0:
-                        let cell = document.createElement('p');
-                        cell.setAttribute('data-state', " ")
-                        cell.addEventListener("click", () => {
-                            if (cell.getAttribute("data-state") == " ") {
-                                if (this.keySelected != null) {
-                                    this.keySelected.setAttribute("data-state", " ");
-                                }
-                                this.keySelected = cell;
-                                cell.setAttribute("data-state", "clicked");
-                            }
-                        });
-                        $('section main').append(cell)
-                        break;
-                    case -1:
-                        $('section main').append('<p data-state="empty"></p>')
-                        break;
-                    default:
-                        $('section main').append('<p data-state="blocked">' + this.board[i][j] + '</p>')
-                        break;
-                }
-            }
+  initialize_time() {
+    this.init_time = Date.now();
+  }
+
+  select(event) {
+    const tecla = event.key;
+    if (this.keySelected != null) {
+      switch (tecla) {
+        case "1":
+          this.introduceElement(1);
+          break;
+        case "2":
+          this.introduceElement(2);
+          break;
+        case "3":
+          this.introduceElement(3);
+          break;
+        case "4":
+          this.introduceElement(4);
+          break;
+        case "5":
+          this.introduceElement(5);
+          break;
+        case "6":
+          this.introduceElement(6);
+          break;
+        case "7":
+          this.introduceElement(7);
+          break;
+        case "8":
+          this.introduceElement(8);
+          break;
+        case "9":
+          this.introduceElement(9);
+          break;
+        case "+":
+          this.introduceElement("+");
+          break;
+        case "-":
+          this.introduceElement("-");
+          break;
+        case "*":
+          this.introduceElement("*");
+          break;
+        case "/":
+          this.introduceElement("/");
+          break;
+      }
+    } else {
+      alert("Debes pulsar una casilla antes de introducir un valor");
+    }
+  }
+
+  introduceElement(number) {
+    if (this.keySelected.getAttribute("data-state") == "clicked") {
+      const section = document.querySelector("main");
+      const selectedIndex = Array.from(section.children).indexOf(
+        this.keySelected
+      );
+
+      const rowIndex = Math.floor(selectedIndex / this.columnas);
+      const colIndex = selectedIndex % this.columnas;
+      if (this.check(rowIndex, colIndex)) {
+        this.keySelected.innerHTML = number;
+        this.keySelected.setAttribute("data-state", "correct");
+      } else {
+        // Mensaje o acción cuando se violan las reglas
+        alert("Número no válido en esta posición.");
+      }
+    }
+  }
+
+  check(rowIndex, colIndex) {
+    let c = 1;
+    while(this.board[rowIndex][colIndex + c] != undefined){
+        if (this.board[rowIndex][colIndex + c] == "="){
+            return true;
         }
-        this.initialize_time();
+        c++;
     }
+    return false;
+  }
 
-    initialize_time() {
-        this.init_time = Date.now();
-    }
-
-    select(event) {
-        const tecla = event.key;
-        if (this.keySelected != null) {
-            switch (tecla) {
-                case "1":
-                    this.introduceElement(1);
-                    break;
-                case "2":
-                    this.introduceElement(2);
-                    break;
-                case "3":
-                    this.introduceElement(3);
-                    break;
-                case "4":
-                    this.introduceElement(4);
-                    break;
-                case "5":
-                    this.introduceElement(5);
-                    break;
-                case "6":
-                    this.introduceElement(6);
-                    break;
-                case "7":
-                    this.introduceElement(7);
-                    break;
-                case "8":
-                    this.introduceElement(8);
-                    break;
-                case "9":
-                    this.introduceElement(9);
-                    break;
-                case "+":
-                    this.introduceElement("+");
-                    break;
-                case "-":
-                    this.introduceElement("-");
-                    break;
-                case "*":
-                    this.introduceElement("*");
-                    break;
-                case "/":
-                    this.introduceElement("/");
-                    break;
-            }
-        } else{
-            alert("Debes pulsar una casilla antes de introducir un valor");
+  check_win_condition() {
+    for (let i = 0; i < this.filas; i++) {
+      for (let j = 0; j < this.columnas; j++) {
+        if (this.board[i][j] == 0) {
+          return false;
         }
+      }
     }
+    this.end_time = Date.now();
+    return true;
+  }
 
-    introduceElement(number) {
-        if (this.keySelected.getAttribute("data-state") == "clicked") {
-            this.keySelected.innerText = number;
-        }
-    }
+  calculate_date_difference() {
+    let time_spend = new Date(this.end_time - this.init_time);
+    return (
+      time_spend.getUTCHours() +
+      ":" +
+      time_spend.getUTCMinutes() +
+      ":" +
+      time_spend.getUTCSeconds()
+    );
+  }
 
-    check_win_condition() {
-        for (let i = 0; i < this.filas; i++) {
-            for (let j = 0; j < this.columnas; j++) {
-                if (this.board[i][j] == 0) {
-                    return false;
-                }
-            }
-        }
-        this.end_time = Date.now();
-        return true;
-    }
+  test() {
+    this.init_time = new Date();
+    this.sleep(1000);
+    this.end_time = new Date();
+    let time_spend = new Date(this.end_time - this.init_time);
+    console.log(
+      time_spend.getUTCHours() +
+        ":" +
+        time_spend.getUTCMinutes() +
+        ":" +
+        time_spend.getUTCSeconds()
+    );
+  }
 
-    calculate_date_difference() {
-        let time_spend = new Date(this.end_time - this.init_time);
-        return time_spend.getUTCHours() + ":" + time_spend.getUTCMinutes() + ":" + time_spend.getUTCSeconds();
-    }
-
-    test() {
-        this.init_time = new Date();
-        this.sleep(1000);
-        this.end_time = new Date();
-        let time_spend = new Date(this.end_time - this.init_time);
-        console.log(time_spend.getUTCHours() + ":" + time_spend.getUTCMinutes() + ":" + time_spend.getUTCSeconds())
-    }
-
-    sleep(ms) {
-        var esperarHasta = new Date().getTime() + ms;
-        while (new Date().getTime() < esperarHasta) continue;
-    }
+  sleep(ms) {
+    var esperarHasta = new Date().getTime() + ms;
+    while (new Date().getTime() < esperarHasta) continue;
+  }
 }
 
 var crucigrama = new Crucigrama();
