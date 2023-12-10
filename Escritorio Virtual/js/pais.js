@@ -10,7 +10,7 @@ class Pais {
     this.codigoPais = "BEL";
     this.unidades = "metric";
     this.idioma = "&lang=es";
-    this.cnt = 5;
+    this.cnt = 5 * 8;
     this.url =
       "http://api.openweathermap.org/data/2.5/forecast?q=" +
       this.ciudad +
@@ -57,21 +57,22 @@ class Pais {
         $("pre").text(JSON.stringify(datos, null, 2)); //muestra el json en un elemento pre
         
         //PresentaciÃ³n de los datos contenidos en JSON
-        var stringDatos = "<h2>Pronóstico para 5 días</h2>";
-        stringDatos += "<ul><li>Ciudad: " + datos.city.name + "</li>";
-        datos.list.forEach(day => {
-          stringDatos += "<li>Máxima "+ day.main.temp_max + " Cº</li>";
-          stringDatos += "<li>Mínima "+ day.main.temp_min + " Cº</li>";
-          stringDatos += "<li>Humedad "+ day.main.humidity + " %</li>";
+        var stringDatos = "<section><h2>Pronóstico para 5 días</h2>";
+        stringDatos += "<p>Ciudad: " + datos.city.name + "</p>";
+        datos.list.filter((item, index) => index % 8 === 0).forEach(day => {
+          stringDatos += "<h3>" + day.dt_txt + "</h3>";
+          stringDatos += "<p>Máxima "+ day.main.temp_max + " Cº</p>";
+          stringDatos += "<p>Mínima "+ day.main.temp_min + " Cº</p>";
+          stringDatos += "<p>Humedad "+ day.main.humidity + " %</p>";
           if(day.rain != undefined){
-            stringDatos += "<li>l/m2 "+ day.rain["3h"] + "</li>";
+            stringDatos += "<p>l/m2 "+ day.rain["3h"] + "</p>";
           } else {
-            stringDatos += "<li>l/m2 0</li>";
+            stringDatos += "<p>l/m2 0</p>";
           }
-          stringDatos += "<li>"+ day.weather[0].description + "</li>";
-          stringDatos += "<img src='http://openweathermap.org/img/w/" + day.weather[0].icon + ".png'/>";
+          stringDatos += "<p>"+ day.weather[0].description + "</p>";
+          stringDatos += "<img src='http://openweathermap.org/img/w/" + day.weather[0].icon + ".png' alt='Weather icon for the day'/>";
         });
-        stringDatos += "</ul>";
+        stringDatos += "</section>";
         pais.crearElemento("p",stringDatos, "body");
       },
       error: function () {

@@ -80,13 +80,13 @@ class Crucigrama {
                 cell.setAttribute("data-state", "clicked");
               }
             });
-            $("section main").append(cell);
+            $("main").append(cell);
             break;
           case -1:
-            $("section main").append('<p data-state="empty"></p>');
+            $("main").append('<p data-state="empty"></p>');
             break;
           default:
-            $("section main").append(
+            $("main").append(
               '<p data-state="blocked">' + this.board[i][j] + "</p>"
             );
             break;

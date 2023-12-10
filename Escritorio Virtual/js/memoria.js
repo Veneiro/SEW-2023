@@ -60,7 +60,7 @@ class Memoria {
 
     createElements() {
         const articles = [];
-        const section = document.querySelector('section section');
+        const section = document.querySelector('main');
         for (const element of this.elements) {
             const a = document.createElement('article');
             a.addEventListener('click', this.flip.bind(this));

@@ -2,3 +2,63 @@
 ul li:nth-child(3) {
     color: red;
 }
+
+img {
+    border-radius: 1.5em;
+    margin: 1em;
+}
+
+/* Especificidad 001 */
+video {
+    width: 100%;
+    height: auto;
+    border-radius: 1.5em;
+}
+
+/* Especificidad 001 */
+audio {
+    width: 100%;
+    padding-top: 1.5em;
+}
+
+ul {
+    background-color: rgba(0, 0, 0, 0.329);
+    border-radius: 1em;
+}
+
+ol {
+    background-color: rgba(0, 0, 0, 0.329);
+    border-radius: 1em;
+}
+
+/* Especificidad 002 */
+ul li, dd {
+    font-style: italic;
+}
+
+/* Especificidad 001 */
+dt {
+    font-weight: bold;
+}
+
+/* Especificidad 001 */
+table, table caption {
+    background-color: #282a3f;
+    border-style: solid;
+    border-color: #E9EAEC;
+}
+
+/* Especificidad 001 */
+table tr th {
+    border-style: solid;
+    border-color: #E9EAEC;
+    border-width: 0.1em;
+}
+
+/* Especificidad 001 */
+table tr td {
+    background-color: #90ADC6;
+    color: #282a3f;
+    font-style: italic;
+    text-align: center;
+}
