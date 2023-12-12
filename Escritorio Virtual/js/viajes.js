@@ -1,15 +1,19 @@
 class Viajes {
+  button1 = $("button:eq(0)");
+  button2 = $("button:eq(1)");
+  button3 = $("button:eq(2)");
+
   constructor() {
-    const button1 = $("button:eq(0)");
-    const button2 = $("button:eq(1)");
-    const button3 = $("button:eq(2)");
     navigator.geolocation.getCurrentPosition(this.getPosicion.bind(this));
-    button1.on("click", this.verTodo.bind(this));
-    button2.on("click", this.getMapaEstaticoGoogle.bind(this));
-    button3.on("click", this.initMap.bind(this));
-    document.querySelector('input[type="file"]').addEventListener('change', function (e) {
-        miPosicion.cargarXML(e.target);
-      });
+    this.button1.on("click", this.verTodo.bind(this));
+    this.button2.on("click", this.getMapaEstaticoGoogle.bind(this));
+    this.button3.on("click", this.initMap.bind(this));
+    $('input[type="file"]:eq(0)').on('change', function (e) {
+      miPosicion.cargarXML(e.target);
+    });
+    $('input[type="file"]:eq(1)').on('change', function (e) {
+      miPosicion.initMapPlanimetría(e.target);
+    });
   }
   getPosicion(posicion) {
     this.mensaje =
@@ -89,56 +93,72 @@ class Viajes {
   initMap() {
     var centro = { lat: this.latitud, lng: this.longitud };
     var mapaGeoposicionado = new google.maps.Map(document.querySelector("section"), {
-        zoom: 8,
-        center: centro,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+      zoom: 8,
+      center: centro,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
     var infoWindow = new google.maps.InfoWindow();
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            function (position) {
-                var pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
 
-                infoWindow.setPosition(pos);
-                infoWindow.setContent('Localización encontrada');
-                infoWindow.open(mapaGeoposicionado);
-                mapaGeoposicionado.setCenter(pos);
-            },
-            function () {
-                handleLocationError(true, infoWindow, mapaGeoposicionado.getCenter());
-            }
-        );
+          infoWindow.setPosition(pos);
+          infoWindow.setContent('Localización encontrada');
+          infoWindow.open(mapaGeoposicionado);
+          mapaGeoposicionado.setCenter(pos);
+        },
+        function () {
+          handleLocationError(true, infoWindow, mapaGeoposicionado.getCenter());
+        }
+      );
     } else {
-        // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, mapaGeoposicionado.getCenter());
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, mapaGeoposicionado.getCenter());
     }
-}
+  }
 
-cargarXML(inputFile) {
+  initMapPlanimetría(inputFile) {
     const file = inputFile.files[0];
-  
+    let map = new google.maps.Map(document.querySelectorAll('section')[0], {
+      center: new google.maps.LatLng(51.198006, 3.219436),
+      zoom: 10,
+      mapTypeId: 'terrain'
+    });
+
+    var kmlLayer = new google.maps.KmlLayer(file, {
+      suppressInfoWindows: true,
+      preserveViewport: false,
+      map: map
+    });
+    kmlLayer.addListener('click', function (event) {
+      var content = event.featureData.infoWindowHtml;
+      var testimonial = document.querySelectorAll('section')[0];
+      testimonial.innerHTML = content;
+    });
+  }
+
+  cargarXML(inputFile) {
+    const file = inputFile.files[0];
+
     if (file) {
       const reader = new FileReader();
-  
+
       reader.onload = function (e) {
         const xmlDoc = $.parseXML(e.target.result);
         const $xml = $(xmlDoc);
-  
-        // Aquí puedes acceder a los elementos XML y mostrarlos en la sección
+
         const seccion = document.querySelector("section");
-  
-        // Limpiar contenido previo
+
         seccion.innerHTML = "<h3>Rutas</h3>";
-  
-        // Iterar sobre cada ruta en el XML
+
         $xml.find("ruta").each(function () {
           const $ruta = $(this);
-  
-          // Extraer información de la ruta
+
           const nombreRuta = $ruta.find("nombreRuta").text();
           const tipoRuta = $ruta.find("tipoRuta").text();
           const medioTransporte = $ruta.find("medioTransporte").text();
@@ -150,9 +170,7 @@ cargarXML(inputFile) {
           const adecuadoPara = $ruta.find("adecuadoPara").text();
           const lugarInicio = $ruta.find("lugarInicio").text();
           const direccionInicio = $ruta.find("direccionInicio").text();
-          // Agrega más campos según sea necesario
-  
-          // Construir el contenido HTML para la ruta
+          
           const contenidoRuta = `
             <article>
               <h4>${nombreRuta}</h4>
@@ -168,19 +186,19 @@ cargarXML(inputFile) {
               <p>Dirección de Inicio: ${direccionInicio}</p>
             </article>
           `;
-  
-          // Agregar la información de la ruta a la sección
+
+          
           seccion.innerHTML += contenidoRuta;
         });
       };
-  
+
       reader.readAsText(file);
     } else {
       console.error("No se ha seleccionado ningún archivo.");
     }
   }
-  
-  
+
+
 
 }
 

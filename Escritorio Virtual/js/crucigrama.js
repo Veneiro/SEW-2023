@@ -196,13 +196,19 @@ class Crucigrama {
           this.expresion,
           this.second_number,
         ];
+        if(expresionArray.includes(0)){
+          this.checkColumn(rowIndex, colIndex, number);
+        }
         if (eval(expresionArray.join("")) == this.result) {
           return true;
         }
+        this.board[rowIndex][colIndex] = 0;
         return false;
       }
       c++;
     }
+    this.board[rowIndex][colIndex] = 0;
+    return false;
   }
 
   checkColumn(rowIndex, colIndex, number) {
@@ -219,13 +225,18 @@ class Crucigrama {
           this.expresion,
           this.second_number,
         ];
+        if(expresionArray.includes(0)){
+          return true;
+        }
         if (eval(expresionArray.join("")) == this.result) {
           return true;
         }
+        this.board[rowIndex][colIndex] = 0;
         return false;
       }
       c++;
     }
+    this.board[rowIndex][colIndex] = 0;
     return false;
   }
 
