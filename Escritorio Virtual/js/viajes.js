@@ -124,23 +124,42 @@ class Viajes {
 
   initMapPlanimetría(inputFile) {
     const file = inputFile.files[0];
-    let map = new google.maps.Map(document.querySelectorAll('section')[0], {
-      center: new google.maps.LatLng(51.198006, 3.219436),
-      zoom: 10,
-      mapTypeId: 'terrain'
-    });
 
-    var kmlLayer = new google.maps.KmlLayer(file, {
-      suppressInfoWindows: true,
-      preserveViewport: false,
-      map: map
-    });
-    kmlLayer.addListener('click', function (event) {
-      var content = event.featureData.infoWindowHtml;
-      var testimonial = document.querySelectorAll('section')[0];
-      testimonial.innerHTML = content;
-    });
-  }
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const kmlData = e.target.result;
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(kmlData, "text/xml");
+
+            const map = new google.maps.Map(document.querySelector('section'), {
+                center: new google.maps.LatLng(51.198006, 3.219436),
+                zoom: 10,
+                mapTypeId: 'terrain'
+            });
+
+            const kmlLayer = new google.maps.KmlLayer({
+                url: 'data:application/vnd.google-earth.kml+xml;charset=utf-8,' + encodeURIComponent(kmlData),
+                suppressInfoWindows: true,
+                preserveViewport: false,
+                map: map
+            });
+
+            kmlLayer.addListener('click', function (event) {
+                const content = event.featureData.infoWindowHtml;
+                const section = document.querySelector('section');
+                section.innerHTML = content;
+            });
+        };
+
+        reader.readAsText(file);
+    } else {
+        console.error("No se ha seleccionado ningún archivo.");
+    }
+}
+
+
 
   cargarXML(inputFile) {
     const file = inputFile.files[0];

@@ -159,21 +159,14 @@ class Crucigrama {
       const rowIndex = Math.floor(selectedIndex / this.columnas);
       const colIndex = selectedIndex % this.columnas;
 
-      if (this.checkRow(rowIndex, colIndex, number)) {
+      if (this.checkRow(rowIndex, colIndex, number) && this.checkColumn(rowIndex, colIndex, number)) {
         this.keySelected.innerHTML = number;
         this.keySelected.setAttribute("data-state", "correct");
         this.keySelected = undefined;
-        console.log(this.board);
         if (this.check_win_condition()) {
-          alert("YOU WIN!!!");
-        }
-      } else if (this.checkColumn(rowIndex, colIndex, number)) {
-        this.keySelected.innerHTML = number;
-        this.keySelected.setAttribute("data-state", "correct");
-        this.keySelected = undefined;
-        console.log(this.board);
-        if (this.check_win_condition()) {
-          alert("YOU WIN!!!");
+          console.log(this.board);
+          let formulario = '<form action="crucigrama.php" method="post"><p><label for="nombre">Nombre:</label><input type="text" name="nombre" id="nombre"><label for="apellidos">Apellidos:</label><input type="text" name="apellidos" id="apellidos"></p><button type="submit">Guardar Record</button></form>'
+          document.querySelector('main').innerHTML = formulario;
         }
       } else {
         // Mensaje o acción cuando se violan las reglas
@@ -184,7 +177,7 @@ class Crucigrama {
 
   checkRow(rowIndex, colIndex, number) {
     let c = 1;
-    while (this.board[rowIndex][colIndex + c] != undefined) {
+    while (colIndex + c < this.columnas &&this.board[rowIndex][colIndex + c] != undefined) {
       if (this.board[rowIndex][colIndex + c] == "=") {
         this.board[rowIndex][colIndex] = number;
         this.first_number = this.board[rowIndex][colIndex + (c - 3)];
@@ -197,7 +190,8 @@ class Crucigrama {
           this.second_number,
         ];
         if(expresionArray.includes(0)){
-          this.checkColumn(rowIndex, colIndex, number);
+          return true;
+          //this.checkColumn(rowIndex, colIndex, number);
         }
         if (eval(expresionArray.join("")) == this.result) {
           return true;
@@ -207,13 +201,13 @@ class Crucigrama {
       }
       c++;
     }
-    this.board[rowIndex][colIndex] = 0;
-    return false;
+    this.board[rowIndex][colIndex] = number;
+    return true;
   }
 
   checkColumn(rowIndex, colIndex, number) {
     let c = 1;
-    while (this.board[rowIndex + c][colIndex] != undefined) {
+    while (rowIndex + c < this.filas && this.board[rowIndex + c][colIndex] != undefined) {
       if (this.board[rowIndex + c][colIndex] == "=") {
         this.board[rowIndex][colIndex] = number;
         this.first_number = this.board[rowIndex + (c - 3)][colIndex];
@@ -236,8 +230,8 @@ class Crucigrama {
       }
       c++;
     }
-    this.board[rowIndex][colIndex] = 0;
-    return false;
+    this.board[rowIndex][colIndex] = number;
+    return true;
   }
 
   check_win_condition() {
