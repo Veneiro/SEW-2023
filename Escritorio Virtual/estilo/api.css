@@ -1,0 +1,114 @@
+input[type=range] {
+  box-shadow: 0em 0em 1.5em 0.1em black;
+}
+
+input:disabled[type=range] {
+  box-shadow: 0em 0em 1.5em 0.1em black;
+  border:0.1em solid black;
+  height:0.1em;
+}
+
+p:nth-child(4){
+  font-weight: bold;
+}
+
+/*Especificidad: 001*/
+main {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.651);
+  border-radius: 0.3em;
+  width: 100%;
+  height: 25em; 
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+main > section {
+  text-align: left;
+  padding-left: 1em;
+  padding-bottom: 0.5em;
+}
+
+section {
+  text-align: center;
+}
+
+button {
+  font-size: 1.5em;
+  background-color: rgb(99, 99, 99);
+  color:white;
+  border-bottom-left-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+  text-align: center;
+  border-bottom: 0.1em groove;
+  border-right: 0.1em groove;
+  border-left: 0.1em groove;
+  padding:0.9em;
+  height: 3em;
+  width: 3em;
+}
+
+button:hover {
+  background-color: rgb(146, 146, 146);
+  color:black;
+}
+
+button:nth-child(1){
+  font-size: 1.5em;
+  background-color: red;
+  border-bottom-left-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+  text-align: center;
+  color: black;
+  border-bottom: 0.1em groove;
+  border-right: 0.1em groove;
+  border-left: 0.1em groove;
+  padding: 1em;
+  height: 3em;
+  width: 5em;
+}
+
+button:hover:nth-child(1) {
+  background-color: rgba(255, 0, 0, 0.774);
+  color:white;
+}
+
+button:disabled:nth-child(1) {
+  background-color: rgba(255, 0, 0, 0.336);
+  color:white;
+}
+
+button:nth-child(6){
+  font-size: 1.5em;
+  background-color: orange;
+  border-bottom-left-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+  text-align: center;
+  color: black;
+  border-bottom: 0.1em groove;
+  border-right: 0.1em groove;
+  border-left: 0.1em groove;
+  padding: 1.1em;
+  height: 3em;
+  width: 5em;
+}
+
+button:hover:nth-child(6) {
+  background-color: rgba(255, 145, 0, 0.774);
+  color:black;
+}
+
+button:disabled:nth-child(6) {
+  background-color: rgba(255, 166, 0, 0.336);
+  color:white;
+}
+
+button:disabled {
+  background-color: rgb(75, 75, 75);
+  color: rgba(255, 255, 255, 0.295);
+}
+
+input[type=file]{
+  width:90%;
+}

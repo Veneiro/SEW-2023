@@ -14,6 +14,9 @@ class Viajes {
     $('input[type="file"]:eq(1)').on('change', function (e) {
       miPosicion.initMapPlanimetría(e.target);
     });
+    $('input[type="file"]:eq(2)').on('change', function (e) {
+      miPosicion.readAndRenderSVG(e.target);
+    });
   }
   getPosicion(posicion) {
     this.mensaje =
@@ -122,75 +125,126 @@ class Viajes {
     }
   }
 
-  initMapPlanimetría(inputFile) {
-    const file = inputFile.files[0];
+  initMapPlanimetría(file) {
+    let map = new google.maps.Map(document.querySelector("section"), {
+      center: { lat: 0, lng: 0 },
+      zoom: 2,
+    });
+  
+    // Carga el archivo KML después de que el mapa se haya inicializado
+    this.loadKML(file);
+  }
 
-    if (file) {
-        const reader = new FileReader();
+  loadKML(file) {
+    $.ajax({
+      url: file,
+      dataType: 'xml',
+      success: function (kmlData) {
+        const routesData = parseKML(kmlData);
+        this.drawMap(routesData);
+      },
+      error: function (err) {
+        console.error('Error loading KML file:', err);
+      },
+    });
+  }
 
-        reader.onload = function (e) {
-            const kmlData = e.target.result;
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(kmlData, "text/xml");
+  parseKML(kmlData) {
+    const routes = [];
+  
+    $(kmlData).find('Placemark').each(function () {
+      const name = $(this).find('name').text().trim();
+      const description = $(this).find('description').text().trim();
+      const coordinatesText = $(this).find('coordinates').text().trim();
+      const coordinates = coordinatesText.split(/\s+/).map(coord => coord.split(',').map(Number));
+  
+      const route = {
+        name,
+        description,
+        coordinates,
+      };
+  
+      const lineString = $(this).find('LineString');
+      if (lineString.length > 0) {
+        const lineCoordinatesText = lineString.find('coordinates').text().trim();
+        route.lineCoordinates = lineCoordinatesText.split(/\s+/).map(coord => coord.split(',').map(Number));
+      }
+  
+      routes.push(route);
+    });
+  
+    return routes;
+  }
 
-            const map = new google.maps.Map(document.querySelector('section'), {
-                center: new google.maps.LatLng(51.198006, 3.219436),
-                zoom: 10,
-                mapTypeId: 'terrain'
-            });
-
-            const kmlLayer = new google.maps.KmlLayer({
-                url: 'data:application/vnd.google-earth.kml+xml;charset=utf-8,' + encodeURIComponent(kmlData),
-                suppressInfoWindows: true,
-                preserveViewport: false,
-                map: map
-            });
-
-            kmlLayer.addListener('click', function (event) {
-                const content = event.featureData.infoWindowHtml;
-                const section = document.querySelector('section');
-                section.innerHTML = content;
-            });
-        };
-
-        reader.readAsText(file);
-    } else {
-        console.error("No se ha seleccionado ningún archivo.");
+  drawMap(routesData) {
+    for (const route of routesData) {
+      for (const coord of route.coordinates) {
+        const marker = new google.maps.Marker({
+          position: new google.maps.LatLng(coord[1], coord[0]),
+          map: map,
+          title: route.name,
+        });
+  
+        // Agrega información adicional al marcador
+        const infowindow = new google.maps.InfoWindow({
+          content: `${route.name} - ${route.description}`,
+        });
+  
+        // Muestra la información adicional al hacer clic en el marcador
+        marker.addListener('click', function () {
+          infowindow.open(map, marker);
+        });
+      }
+  
+      if (route.lineCoordinates) {
+        const polyline = new google.maps.Polyline({
+          path: route.lineCoordinates.map(coord => new google.maps.LatLng(coord[1], coord[0])),
+          geodesic: true,
+          strokeColor: '#0000FF',
+          strokeOpacity: 1.0,
+          strokeWeight: 2,
+        });
+  
+        polyline.setMap(map);
+      }
     }
-}
-
-
+  }
 
   cargarXML(inputFile) {
-    const file = inputFile.files[0];
+    let file = inputFile.files[0];
 
     if (file) {
-      const reader = new FileReader();
+      let reader = new FileReader();
 
       reader.onload = function (e) {
-        const xmlDoc = $.parseXML(e.target.result);
-        const $xml = $(xmlDoc);
+        let xmlDoc = $.parseXML(e.target.result);
+        let $xml = $(xmlDoc);
 
-        const seccion = document.querySelector("section");
+        let seccion = document.querySelector("section");
 
         seccion.innerHTML = "<h3>Rutas</h3>";
 
         $xml.find("ruta").each(function () {
-          const $ruta = $(this);
+          let $ruta = $(this);
 
-          const nombreRuta = $ruta.find("nombreRuta").text();
-          const tipoRuta = $ruta.find("tipoRuta").text();
-          const medioTransporte = $ruta.find("medioTransporte").text();
-          const fechaInicio = $ruta.find("fechaInicio").text();
-          const horaInicio = $ruta.find("horaInicio").text();
-          const duracion = $ruta.find("duracion").text();
-          const agencia = $ruta.find("agencia").text();
-          const descripcion = $ruta.find("descripcion").text();
-          const adecuadoPara = $ruta.find("adecuadoPara").text();
-          const lugarInicio = $ruta.find("lugarInicio").text();
-          const direccionInicio = $ruta.find("direccionInicio").text();
+          // Extraer información de la ruta
+          let nombreRuta = $ruta.find("nombreRuta").text();
+          let tipoRuta = $ruta.find("tipoRuta").text();
+          let medioTransporte = $ruta.find("medioTransporte").text();
+          let fechaInicio = $ruta.find("fechaInicio").text();
+          let horaInicio = $ruta.find("horaInicio").text();
+          let duracion = $ruta.find("duracion").text();
+          let agencia = $ruta.find("agencia").text();
+          let descripcion = $ruta.find("descripcion").text();
+          let adecuadoPara = $ruta.find("adecuadoPara").text();
+          let lugarInicio = $ruta.find("lugarInicio").text();
+          let direccionInicio = $ruta.find("direccionInicio").text();
+          let coordenadasInicio = $ruta.find("coordenadasInicioRuta");
+          let referencias = $ruta.find("referencias referencia");
+          let puntuacion = $ruta.find("puntuacion").text();
+          let hitos = $ruta.find("hitos hito");
           
-          const contenidoRuta = `
+          let contenidoRuta = `
             <article>
               <h4>${nombreRuta}</h4>
               <p>Tipo de Ruta: ${tipoRuta}</p>
@@ -206,6 +260,76 @@ class Viajes {
             </article>
           `;
 
+          // Agregar coordenadas de inicio
+        if (coordenadasInicio.length > 0) {
+          let latitud = coordenadasInicio.attr("lat");
+          let longitud = coordenadasInicio.attr("long");
+          let elevacion = coordenadasInicio.attr("ele");
+          contenidoRuta += `<p>Coordenadas de Inicio: Latitud ${latitud}, Longitud ${longitud}, Elevación ${elevacion}</p>`;
+        }
+
+        // Agregar referencias
+        if (referencias.length > 0) {
+          contenidoRuta += "<p>Referencias:</p><ul>";
+          referencias.each(function () {
+            let referencia = $(this).text();
+            contenidoRuta += `<li><a href="${referencia}" target="_blank">${referencia}</a></li>`;
+          });
+          contenidoRuta += "</ul>";
+        }
+
+        // Agregar puntuación
+        contenidoRuta += `<p>Puntuación: ${puntuacion}</p>`;
+
+        // Agregar información de hitos
+        if (hitos.length > 0) {
+          contenidoRuta += "<p>Hitos:</p><ul>";
+          hitos.each(function () {
+            let $hito = $(this);
+            let nombreHito = $hito.find("nombreHito").text();
+            let descripcionHito = $hito.find("descripcionHito").text();
+            let coordenadasHito = $hito.find("coordenadasHito");
+            let distanciaAnteriorHito = $hito.find("distanciaAnteriorHito").text();
+            let fotosHito = $hito.find("fotos foto");
+            let videosHito = $hito.find("videos video");
+
+            contenidoRuta += `<li>${nombreHito} - ${descripcionHito}`;
+            
+            // Agregar coordenadas del hito
+            if (coordenadasHito.length > 0) {
+              let latitudHito = coordenadasHito.attr("lat");
+              let longitudHito = coordenadasHito.attr("long");
+              let elevacionHito = coordenadasHito.attr("ele");
+              contenidoRuta += `, Coordenadas: Latitud ${latitudHito}, Longitud ${longitudHito}, Elevación ${elevacionHito}`;
+            }
+
+            // Agregar distancia desde el hito anterior
+            contenidoRuta += `, Distancia desde el anterior: ${distanciaAnteriorHito}`;
+
+            // Agregar fotos del hito
+            if (fotosHito.length > 0) {
+              contenidoRuta += "<p>Fotos del Hito:</p><ul>";
+              fotosHito.each(function () {
+                contenidoRuta += `<li>${$(this).text()}</li>`;
+              });
+              contenidoRuta += "</ul>";
+            }
+
+            // Agregar videos del hito
+            if (videosHito.length > 0) {
+              contenidoRuta += "<p>Videos del Hito:</p><ul>";
+              videosHito.each(function () {
+                contenidoRuta += `<li>${$(this).text()}</li>`;
+              });
+              contenidoRuta += "</ul>";
+            }
+
+            contenidoRuta += "</li>";
+          });
+          contenidoRuta += "</ul>";
+        }
+
+        contenidoRuta += "</article>";
           
           seccion.innerHTML += contenidoRuta;
         });
@@ -217,8 +341,36 @@ class Viajes {
     }
   }
 
+  readAndRenderSVG(inputElement) {
+    const file = inputElement.files[0];
+  
+    if (file) {
+      const reader = new FileReader();
+  
+      reader.onload = function (e) {
+        const svgText = e.target.result;
+        // Llama a renderSVG con el texto del SVG y el contenedor
+        this.renderSVG(svgText, document.querySelector("section"));
+      }.bind(this); // Asegura que "this" sea la instancia correcta de Viajes
+  
+      reader.readAsText(file);
+    } else {
+      console.error('No se ha seleccionado ningún archivo.');
+    }
+  }
+  
 
+// Este método renderiza el SVG en un contenedor específico
+renderSVG(svgText, container) {
+    // Crear un elemento div para contener el SVG
+    const svgContainer = document.createElement('p');
 
+    // Agregar el SVG al contenedor div
+    svgContainer.innerHTML = svgText;
+
+    // Agregar el contenedor div al contenedor principal en tu página HTML
+    container.appendChild(svgContainer);
+}
 }
 
 var miPosicion = new Viajes();
