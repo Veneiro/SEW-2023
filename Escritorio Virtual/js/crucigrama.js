@@ -12,6 +12,8 @@ class Crucigrama {
   expresion;
   result;
 
+  dificultad_seleccionada = "medio";
+
   constructor() {
     this.board = new Array(this.filas)
       .fill()
@@ -164,8 +166,7 @@ class Crucigrama {
         this.keySelected.setAttribute("data-state", "correct");
         this.keySelected = undefined;
         if (this.check_win_condition()) {
-          console.log(this.board);
-          let formulario = '<form action="crucigrama.php" method="post"><p><label for="nombre">Nombre:</label><input type="text" name="nombre" id="nombre"><label for="apellidos">Apellidos:</label><input type="text" name="apellidos" id="apellidos"></p><button type="submit">Guardar Record</button></form>'
+          let formulario = '<form action="crucigrama.php" method="post"><input type="hidden" name="tiempo" value="'+ this.calculate_date_difference() +'"><input type="hidden" name="nivel" value="'+ this.dificultad_seleccionada +'"><p><label for="nombre">Nombre:</label><input type="text" name="nombre" id="nombre"><label for="apellidos">Apellidos:</label><input type="text" name="apellidos" id="apellidos"></p><button type="submit">Guardar Record</button></form>'
           document.querySelector('main').innerHTML = formulario;
         }
       } else {
@@ -248,35 +249,10 @@ class Crucigrama {
 
   calculate_date_difference() {
     let time_spend = new Date(this.end_time - this.init_time);
-    return (
-      time_spend.getUTCHours() +
-      ":" +
-      time_spend.getUTCMinutes() +
-      ":" +
-      time_spend.getUTCSeconds()
-    );
-  }
-
-  test() {
-    this.init_time = new Date();
-    this.sleep(1000);
-    this.end_time = new Date();
-    let time_spend = new Date(this.end_time - this.init_time);
-    console.log(
-      time_spend.getUTCHours() +
-        ":" +
-        time_spend.getUTCMinutes() +
-        ":" +
-        time_spend.getUTCSeconds()
-    );
-  }
-
-  sleep(ms) {
-    var esperarHasta = new Date().getTime() + ms;
-    while (new Date().getTime() < esperarHasta) continue;
+    return time_spend/1000;
   }
 }
 
 var crucigrama = new Crucigrama();
-crucigrama.start("medio");
+crucigrama.start(crucigrama.dificultad_seleccionada);
 crucigrama.paintMathword();

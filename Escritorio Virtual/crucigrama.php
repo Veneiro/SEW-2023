@@ -33,21 +33,43 @@
         }
 
         function total10(){
+            $sql = 'SELECT nombre, apellidos, nivel, tiempo FROM records ORDER BY tiempo DESC LIMIT 10';
+            $sentencia = $this->conexion->prepare($sql);
 
+            if($sentencia == false){
+                die("Error en la inserción: " . $this->conexion->error);
+            }
+
+            // i(entero) d(real) s(cadena) b(blob)
+            $sentencia->bind_result($nombre, $apellidos, $nivel, $tiempo);
+
+            $sentencia->execute();
+
+            $result = [];
+            while ($sentencia->fetch()) {
+                $result[] = [
+                    'nombre' => $nombre,
+                    'apellidos' => $apellidos,
+                    'nivel' => $nivel,
+                    'tiempo' => $tiempo
+                ];
+            }
+            return $result;
         }
     }
 
     $conexion = new Conexion();
     if(isset($_POST['nombre'])){
-        
-
         $nombre = $_POST['nombre'];
+        $apellidos = $_POST['apellidos'];
+        $nivel = $_POST['nivel'];
+        $tiempo = $_POST['tiempo'];
+        $conexion->insertar($nombre, $apellidos, $nivel, $tiempo);
         header('Location:crucigrama.php?mostrar=mostrar');
-        //$conexion->insertar($nombre, 100);
     }
 
     if(isset($_GET['mostrar'])){
-        $conexion->total10();
+        $datos = $conexion->total10();
     }
 ?>
 <!DOCTYPE HTML>
@@ -82,6 +104,20 @@
             <a href="./juegos.html" accesskey="J" tabindex="5">Juegos</a>        
         </nav>
     </header>
+    <table>
+        <tr>
+            <th>Jugador</th>
+            <th>Nivel</th>
+            <th>Tiemo</th>
+        </tr>
+    <?php foreach ($datos as $dato) { ?>
+        <tr>
+            <td><?php echo $dato['nombre'], ' ', $dato['apellidos'] ?></td>
+            <td><?php echo $dato['nivel'] ?></td>
+            <td><?php echo $dato['tiempo'] ?></td>
+        </tr>
+    <?php } ?>
+    </table>
     <!-- Datos con el contenidos que aparece en el navegador -->
     <section>
         <h2>Juegos</h2>

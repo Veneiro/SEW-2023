@@ -4,15 +4,19 @@ class Viajes {
   button3 = $("button:eq(2)");
 
   constructor() {
+    $(this.init.bind(this));
+  }
+
+  init() {
     navigator.geolocation.getCurrentPosition(this.getPosicion.bind(this));
     this.button1.on("click", this.verTodo.bind(this));
     this.button2.on("click", this.getMapaEstaticoGoogle.bind(this));
     this.button3.on("click", this.initMap.bind(this));
-    $('input[type="file"]:eq(0)').on('change', function (e) {
+    $('input[type="file"]').eq(0).on('change', function (e) {
       miPosicion.cargarXML(e.target);
     });
-    $('input[type="file"]:eq(1)').on('change', function (e) {
-      miPosicion.initMapPlanimetría(e.target);
+    $('input[type="file"]').eq(1).on('change', function (e) {
+      miPosicion.loadKML(e.target);
     });
     $('input[type="file"]:eq(2)').on('change', function (e) {
       miPosicion.readAndRenderSVG(e.target);
@@ -125,88 +129,52 @@ class Viajes {
     }
   }
 
-  initMapPlanimetría(file) {
-    let map = new google.maps.Map(document.querySelector("section"), {
-      center: { lat: 0, lng: 0 },
-      zoom: 2,
+  initMapPlanimetría() {
+    var oviedo = { lat: 43.3672702, lng: -5.8502461 };
+    var mapaOviedo = new google.maps.Map(document.querySelector("section"), {
+        zoom: 8,
+        center: oviedo,
     });
-  
-    // Carga el archivo KML después de que el mapa se haya inicializado
-    this.loadKML(file);
-  }
 
-  loadKML(file) {
-    $.ajax({
-      url: file,
-      dataType: 'xml',
-      success: function (kmlData) {
-        const routesData = parseKML(kmlData);
-        this.drawMap(routesData);
-      },
-      error: function (err) {
-        console.error('Error loading KML file:', err);
-      },
+    this.lugares.forEach(function (place) {
+        var coords = place.map(Number); // Convierte las coordenadas a números        
+        var livingIn = { lat: coords[1], lng: coords[0] }; // Orden corregido: latitud, longitud
+        var marcador = new google.maps.Marker({
+            position: livingIn,
+            map: mapaOviedo,
+        });
     });
   }
 
-  parseKML(kmlData) {
-    const routes = [];
-  
-    $(kmlData).find('Placemark').each(function () {
-      const name = $(this).find('name').text().trim();
-      const description = $(this).find('description').text().trim();
-      const coordinatesText = $(this).find('coordinates').text().trim();
-      const coordinates = coordinatesText.split(/\s+/).map(coord => coord.split(',').map(Number));
-  
-      const route = {
-        name,
-        description,
-        coordinates,
-      };
-  
-      const lineString = $(this).find('LineString');
-      if (lineString.length > 0) {
-        const lineCoordinatesText = lineString.find('coordinates').text().trim();
-        route.lineCoordinates = lineCoordinatesText.split(/\s+/).map(coord => coord.split(',').map(Number));
-      }
-  
-      routes.push(route);
+  processData(data) {
+    var coordenadas = [];
+
+    var parser = new DOMParser();
+    var dom = parser.parseFromString(data, "text/xml");
+    var placemarks = dom.querySelectorAll('Placemark');
+
+    placemarks.forEach((placemark) => {
+        var coordinatesElement = placemark.querySelector('coordinates');
+        if (coordinatesElement) {
+            var coordinates = coordinatesElement.textContent.trim().split(",");
+            coordenadas.push(coordinates);
+        }
     });
-  
-    return routes;
+
+    this.lugares = coordenadas;
+    this.initMapPlanimetría();
   }
 
-  drawMap(routesData) {
-    for (const route of routesData) {
-      for (const coord of route.coordinates) {
-        const marker = new google.maps.Marker({
-          position: new google.maps.LatLng(coord[1], coord[0]),
-          map: map,
-          title: route.name,
-        });
-  
-        // Agrega información adicional al marcador
-        const infowindow = new google.maps.InfoWindow({
-          content: `${route.name} - ${route.description}`,
-        });
-  
-        // Muestra la información adicional al hacer clic en el marcador
-        marker.addListener('click', function () {
-          infowindow.open(map, marker);
-        });
-      }
-  
-      if (route.lineCoordinates) {
-        const polyline = new google.maps.Polyline({
-          path: route.lineCoordinates.map(coord => new google.maps.LatLng(coord[1], coord[0])),
-          geodesic: true,
-          strokeColor: '#0000FF',
-          strokeOpacity: 1.0,
-          strokeWeight: 2,
-        });
-  
-        polyline.setMap(map);
-      }
+
+  loadKML(input) {
+    var archive = input.files[0];
+    var reader = new FileReader();
+
+    if (archive.name) {
+      reader.onload = (e) => this.processData(reader.result);
+      reader.readAsText(archive);
+    } else {
+      $("main").text("El archivo seleccionado no es de un tipo válido");
     }
   }
 
@@ -243,7 +211,7 @@ class Viajes {
           let referencias = $ruta.find("referencias referencia");
           let puntuacion = $ruta.find("puntuacion").text();
           let hitos = $ruta.find("hitos hito");
-          
+
           let contenidoRuta = `
             <article>
               <h4>${nombreRuta}</h4>
@@ -261,76 +229,76 @@ class Viajes {
           `;
 
           // Agregar coordenadas de inicio
-        if (coordenadasInicio.length > 0) {
-          let latitud = coordenadasInicio.attr("lat");
-          let longitud = coordenadasInicio.attr("long");
-          let elevacion = coordenadasInicio.attr("ele");
-          contenidoRuta += `<p>Coordenadas de Inicio: Latitud ${latitud}, Longitud ${longitud}, Elevación ${elevacion}</p>`;
-        }
+          if (coordenadasInicio.length > 0) {
+            let latitud = coordenadasInicio.attr("lat");
+            let longitud = coordenadasInicio.attr("long");
+            let elevacion = coordenadasInicio.attr("ele");
+            contenidoRuta += `<p>Coordenadas de Inicio: Latitud ${latitud}, Longitud ${longitud}, Elevación ${elevacion}</p>`;
+          }
 
-        // Agregar referencias
-        if (referencias.length > 0) {
-          contenidoRuta += "<p>Referencias:</p><ul>";
-          referencias.each(function () {
-            let referencia = $(this).text();
-            contenidoRuta += `<li><a href="${referencia}" target="_blank">${referencia}</a></li>`;
-          });
-          contenidoRuta += "</ul>";
-        }
+          // Agregar referencias
+          if (referencias.length > 0) {
+            contenidoRuta += "<p>Referencias:</p><ul>";
+            referencias.each(function () {
+              let referencia = $(this).text();
+              contenidoRuta += `<li><a href="${referencia}" target="_blank">${referencia}</a></li>`;
+            });
+            contenidoRuta += "</ul>";
+          }
 
-        // Agregar puntuación
-        contenidoRuta += `<p>Puntuación: ${puntuacion}</p>`;
+          // Agregar puntuación
+          contenidoRuta += `<p>Puntuación: ${puntuacion}</p>`;
 
-        // Agregar información de hitos
-        if (hitos.length > 0) {
-          contenidoRuta += "<p>Hitos:</p><ul>";
-          hitos.each(function () {
-            let $hito = $(this);
-            let nombreHito = $hito.find("nombreHito").text();
-            let descripcionHito = $hito.find("descripcionHito").text();
-            let coordenadasHito = $hito.find("coordenadasHito");
-            let distanciaAnteriorHito = $hito.find("distanciaAnteriorHito").text();
-            let fotosHito = $hito.find("fotos foto");
-            let videosHito = $hito.find("videos video");
+          // Agregar información de hitos
+          if (hitos.length > 0) {
+            contenidoRuta += "<p>Hitos:</p><ul>";
+            hitos.each(function () {
+              let $hito = $(this);
+              let nombreHito = $hito.find("nombreHito").text();
+              let descripcionHito = $hito.find("descripcionHito").text();
+              let coordenadasHito = $hito.find("coordenadasHito");
+              let distanciaAnteriorHito = $hito.find("distanciaAnteriorHito").text();
+              let fotosHito = $hito.find("fotos foto");
+              let videosHito = $hito.find("videos video");
 
-            contenidoRuta += `<li>${nombreHito} - ${descripcionHito}`;
-            
-            // Agregar coordenadas del hito
-            if (coordenadasHito.length > 0) {
-              let latitudHito = coordenadasHito.attr("lat");
-              let longitudHito = coordenadasHito.attr("long");
-              let elevacionHito = coordenadasHito.attr("ele");
-              contenidoRuta += `, Coordenadas: Latitud ${latitudHito}, Longitud ${longitudHito}, Elevación ${elevacionHito}`;
-            }
+              contenidoRuta += `<li>${nombreHito} - ${descripcionHito}`;
 
-            // Agregar distancia desde el hito anterior
-            contenidoRuta += `, Distancia desde el anterior: ${distanciaAnteriorHito}`;
+              // Agregar coordenadas del hito
+              if (coordenadasHito.length > 0) {
+                let latitudHito = coordenadasHito.attr("lat");
+                let longitudHito = coordenadasHito.attr("long");
+                let elevacionHito = coordenadasHito.attr("ele");
+                contenidoRuta += `, Coordenadas: Latitud ${latitudHito}, Longitud ${longitudHito}, Elevación ${elevacionHito}`;
+              }
 
-            // Agregar fotos del hito
-            if (fotosHito.length > 0) {
-              contenidoRuta += "<p>Fotos del Hito:</p><ul>";
-              fotosHito.each(function () {
-                contenidoRuta += `<li>${$(this).text()}</li>`;
-              });
-              contenidoRuta += "</ul>";
-            }
+              // Agregar distancia desde el hito anterior
+              contenidoRuta += `, Distancia desde el anterior: ${distanciaAnteriorHito}`;
 
-            // Agregar videos del hito
-            if (videosHito.length > 0) {
-              contenidoRuta += "<p>Videos del Hito:</p><ul>";
-              videosHito.each(function () {
-                contenidoRuta += `<li>${$(this).text()}</li>`;
-              });
-              contenidoRuta += "</ul>";
-            }
+              // Agregar fotos del hito
+              if (fotosHito.length > 0) {
+                contenidoRuta += "<p>Fotos del Hito:</p><ul>";
+                fotosHito.each(function () {
+                  contenidoRuta += `<li>${$(this).text()}</li>`;
+                });
+                contenidoRuta += "</ul>";
+              }
 
-            contenidoRuta += "</li>";
-          });
-          contenidoRuta += "</ul>";
-        }
+              // Agregar videos del hito
+              if (videosHito.length > 0) {
+                contenidoRuta += "<p>Videos del Hito:</p><ul>";
+                videosHito.each(function () {
+                  contenidoRuta += `<li>${$(this).text()}</li>`;
+                });
+                contenidoRuta += "</ul>";
+              }
 
-        contenidoRuta += "</article>";
-          
+              contenidoRuta += "</li>";
+            });
+            contenidoRuta += "</ul>";
+          }
+
+          contenidoRuta += "</article>";
+
           seccion.innerHTML += contenidoRuta;
         });
       };
@@ -343,25 +311,25 @@ class Viajes {
 
   readAndRenderSVG(inputElement) {
     const file = inputElement.files[0];
-  
+
     if (file) {
       const reader = new FileReader();
-  
+
       reader.onload = function (e) {
         const svgText = e.target.result;
         // Llama a renderSVG con el texto del SVG y el contenedor
         this.renderSVG(svgText, document.querySelector("section"));
       }.bind(this); // Asegura que "this" sea la instancia correcta de Viajes
-  
+
       reader.readAsText(file);
     } else {
       console.error('No se ha seleccionado ningún archivo.');
     }
   }
-  
 
-// Este método renderiza el SVG en un contenedor específico
-renderSVG(svgText, container) {
+
+  // Este método renderiza el SVG en un contenedor específico
+  renderSVG(svgText, container) {
     // Crear un elemento div para contener el SVG
     const svgContainer = document.createElement('p');
 
@@ -370,7 +338,7 @@ renderSVG(svgText, container) {
 
     // Agregar el contenedor div al contenedor principal en tu página HTML
     container.appendChild(svgContainer);
-}
+  }
 }
 
 var miPosicion = new Viajes();
