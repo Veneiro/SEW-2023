@@ -1,7 +1,13 @@
+/**
+ * Mateo Rico Iglesias
+ * UO277172
+ */
+
+/* Especificidad 001 */
 section {
-    background-color: rgba(1, 1, 1, 0.39);
-    border-radius: 1em;
-    margin:1em;
-    padding:0.5em;
-    text-align: center;
+  background-color: rgba(1, 1, 1, 0.39);
+  border-radius: 1em;
+  margin: 1em;
+  padding: 0.5em;
+  text-align: center;
 }

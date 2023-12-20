@@ -62,7 +62,7 @@ class Player {
           if (cursor) {
             c.setAux(cursor.value.url);
             names.push(cursor.value.name);
-            $("main").append("<section>" + cursor.value.name + "</section>");
+            $("main").append("<p>" + cursor.value.name + "</p>");
             cursor.continue();
           }
           this.playlist = c.getAux();
@@ -71,7 +71,7 @@ class Player {
           let aux3 = window.localStorage.getObj("index");
           this.playlistIndex = aux3;
           $(document.querySelector("p:nth-child(7)")).html(
-            '<audio crossorigin="anonymous" name="audio" src="' +
+            '<audio crossorigin="anonymous" src="' +
               this.playlist[this.playlistIndex] +
               '"></audio>'
           );
@@ -139,7 +139,7 @@ class Player {
   init() {
     this.audioContext = new AudioContext();
     // get the audio element
-    this.audioElement = document.getElementsByName("audio")[0];
+    this.audioElement = document.querySelector('audio');
 
     this.audioElement.addEventListener(
       "ended",
@@ -166,7 +166,7 @@ class Player {
   initAfterNext() {
     this.audioContext = new AudioContext();
     // get the audio element
-    this.audioElement = document.getElementsByName("audio")[0];
+    this.audioElement = document.querySelector('audio');
 
     this.audioElement.addEventListener(
       "ended",
@@ -237,11 +237,11 @@ class Player {
         });
 
         $(document.querySelector("p:nth-child(7)")).html(
-          '<audio crossorigin="anonymous" name="audio" src="' +
+          '<audio crossorigin="anonymous" src="' +
             this.playlist[this.playlistIndex] +
             '"></audio>'
         );
-        $("main").append("<section>" + this.archive.name + "</section>");
+        $("main").append("<p>" + this.archive.name + "</p>");
         this.buttonPower[0].disabled = false;
       },
       false
@@ -256,7 +256,7 @@ class Player {
     if (this.playButton.dataset.playing === "true") {
       if (this.playlistIndex + 1 < this.playlist.length) {
         $(document.querySelector("p:nth-child(7)")).html(
-          '<audio crossorigin="anonymous" name="audio" src="' +
+          '<audio crossorigin="anonymous" src="' +
             this.playlist[this.playlistIndex + 1] +
             '"></audio>'
         );
@@ -267,7 +267,7 @@ class Player {
       } else {
         this.playlistIndex = 0;
         $(document.querySelector("p:nth-child(7)")).html(
-          '<audio crossorigin="anonymous" name="audio" src="' +
+          '<audio crossorigin="anonymous" src="' +
             this.playlist[this.playlistIndex] +
             '"></audio>'
         );
@@ -278,7 +278,7 @@ class Player {
     } else if (this.playButton.dataset.playing === "false") {
       if (this.playlistIndex + 1 < this.playlist.length) {
         $(document.querySelector("p:nth-child(7)")).html(
-          '<audio crossorigin="anonymous" name="audio" src="' +
+          '<audio crossorigin="anonymous" src="' +
             this.playlist[this.playlistIndex + 1] +
             '"></audio>'
         );
@@ -296,7 +296,7 @@ class Player {
     if (this.playButton.dataset.playing === "true") {
       if (this.playlistIndex - 1 >= 0) {
         $(document.querySelector("p:nth-child(7)")).html(
-          '<audio crossorigin="anonymous" name="audio" src="' +
+          '<audio crossorigin="anonymous" src="' +
             this.playlist[this.playlistIndex - 1] +
             '"></audio>'
         );
@@ -310,7 +310,7 @@ class Player {
     } else if (this.playButton.dataset.playing === "false") {
       if (this.playlistIndex - 1 >= 0) {
         $(document.querySelector("p:nth-child(7)")).html(
-          '<audio crossorigin="anonymous" name="audio" src="' +
+          '<audio crossorigin="anonymous" src="' +
             this.playlist[this.playlistIndex - 1] +
             '"></audio>'
         );

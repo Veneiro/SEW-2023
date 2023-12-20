@@ -10,9 +10,10 @@
     <meta name="keywords" content="music, player, music player" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="./estilo/api.css" />
     <link rel="stylesheet" href="./estilo/estilo.css" />
-    <link rel="icon" href="multimedia/imagenes/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="estilo/layout.css" />
+    <link rel="stylesheet" href="./estilo/api.css" />
+    <link rel="icon" href="multimedia/imagenes/favicon.ico" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   </head>
 
@@ -20,23 +21,31 @@
     <header>
       <h1>Escritorio Virtual</h1>
       <nav>
-          <a href="./index.html" accesskey="P" tabindex="1">Página Principal</a>
-          <a href="./sobremi.html" accesskey="S" tabindex="7">Sobre Mí</a>
-          <a href="./noticias.html" accesskey="N" tabindex="2">Noticias</a>
-          <a href="./agenda.html" accesskey="A" tabindex="6">Agenda</a>
-          <a href="./meteorologia.html" accesskey="M" tabindex="4">Meteorología</a>
-          <a href="./viajes.html" accesskey="V" tabindex="3">Viajes</a>
-          <a href="./juegos.html" accesskey="J" tabindex="5">Juegos</a>        
+        <a href="./index.html" accesskey="P" tabindex="1">Página Principal</a>
+        <a href="./sobremi.html" accesskey="S" tabindex="7">Sobre Mí</a>
+        <a href="./noticias.html" accesskey="N" tabindex="2">Noticias</a>
+        <a href="./agenda.html" accesskey="A" tabindex="6">Agenda</a>
+        <a href="./meteorologia.html" accesskey="M" tabindex="4"
+          >Meteorología</a
+        >
+        <a href="./viajes.php" accesskey="V" tabindex="3">Viajes</a>
+        <a href="./juegos.html" accesskey="J" tabindex="5">Juegos</a>
       </nav>
-  </header>
-    <h1>Music Player</h1>
+    </header>
+    <section>
+      <h2>Juegos</h2>
+      <a href="juegos.html">Inicio</a>
+      <a href="memoria.html">Juego de Memoria</a>
+      <a href="sudoku.html">Sudoku</a>
+      <a href="crucigrama.php">Crucigrama Matemático</a>
+      <a href="api.html">Reproductor de Música</a>
+      <a href="tienda.php">Tienda Videojuegos</a>
+    </section>
+    <h3>Music Player</h3>
     <label>🟥</label>
     <label>
       Import a song:
-      <input
-        type="file"
-        onchange="player.addSong(this.files)"
-      />
+      <input type="file" onchange="player.addSong(this.files)" />
     </label>
     <p>Playing:</p>
     <main></main>
@@ -67,6 +76,7 @@
       </label>
       <button>Clear</button>
       <p></p>
+      <h4>Controles</h4>
     </section>
     <script src="./js/api.js"></script>
   </body>

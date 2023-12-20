@@ -3,43 +3,56 @@
 * UO277172
 */
 
+/* Especificidad 001*/
 header {
     display: flex;
 }
 
 @media (max-width: 600px) {
+    /* Especificidad 001*/
     header {
         display: block;
     }
 }
 
+/* Especificidad 001 */
 nav {
     display: flex;
     flex-wrap: wrap;
 }
 
 @media (max-width: 600px) {
+    /* Especificidad 001 */
     nav {
         flex-direction: column;
     }
 }
 
 @media (min-width: 600px) {
-    body section section:first-child {
+    /* Especificidad 013*/
+    body section section:first-of-type {
         display: flex;
         justify-content: space-between;
     }
 
+    /* Especificidad 004 */
+    body section section h3{
+        flex-grow:1;
+    }
+
+    /* Especificidad 013*/
     body section section:nth-child(3) {
         display: flex;
         flex-direction: column;
     }
 
+    /* Especificidad 014*/
     body section section:nth-child(3) picture {
         display: flex;
         justify-content: center;
     }
 
+    /* Especificidad 003*/
     section section article {
         flex: 1 0 20%;
     }

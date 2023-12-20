@@ -45,9 +45,6 @@ class Noticias {
             }
             lector.readAsText(archivo);
         }
-        else {
-            console.log("Error : ¡¡¡ Archivo no válido !!!");
-        }
     };
 }
 

@@ -112,7 +112,7 @@ class SalidaSVG:
 
     def cabecera_svg(self):
         self.f.write('<?xml version="1.0" encoding="utf-8"?>\n')
-        self.f.write('<svg width="auto" height="12520" style="overflow:visible "'
+        self.f.write('<svg'
                      ' version="1.1" xmlns="http://www.w3.org/2000/svg">\n')
 
     def cierre_svg(self):

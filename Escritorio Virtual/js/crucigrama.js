@@ -11,6 +11,7 @@ class Crucigrama {
   second_number;
   expresion;
   result;
+  won = false;
 
   dificultad_seleccionada = "medio";
 
@@ -23,6 +24,7 @@ class Crucigrama {
   }
 
   start(dificultad) {
+    this.won = false;
     document
       .querySelector("body")
       .addEventListener("keydown", this.select.bind(this));
@@ -147,7 +149,9 @@ class Crucigrama {
           break;
       }
     } else {
-      alert("Debes pulsar una casilla antes de introducir un valor");
+      if(!this.won){
+        alert("Debes pulsar una casilla antes de introducir un valor");
+      }
     }
   }
 
@@ -161,24 +165,44 @@ class Crucigrama {
       const rowIndex = Math.floor(selectedIndex / this.columnas);
       const colIndex = selectedIndex % this.columnas;
 
-      if (this.checkRow(rowIndex, colIndex, number) && this.checkColumn(rowIndex, colIndex, number)) {
+      if (
+        this.checkRow(rowIndex, colIndex, number) &&
+        this.checkColumn(rowIndex, colIndex, number)
+      ) {
         this.keySelected.innerHTML = number;
         this.keySelected.setAttribute("data-state", "correct");
         this.keySelected = undefined;
         if (this.check_win_condition()) {
-          let formulario = '<form action="crucigrama.php" method="post"><input type="hidden" name="tiempo" value="'+ this.calculate_date_difference() +'"><input type="hidden" name="nivel" value="'+ this.dificultad_seleccionada +'"><p><label for="nombre">Nombre:</label><input type="text" name="nombre" id="nombre"><label for="apellidos">Apellidos:</label><input type="text" name="apellidos" id="apellidos"></p><button type="submit">Guardar Record</button></form>'
-          document.querySelector('main').innerHTML = formulario;
+          this.won = true;
+          this.createRecordForm();
         }
       } else {
-        // Mensaje o acción cuando se violan las reglas
-        alert("Posición inválida o resultado incorrecto");
+        if(!this.won){
+          alert("Posición inválida o resultado incorrecto");
+        }
       }
     }
   }
 
+  createRecordForm() {
+    document
+      .querySelector("body")
+      .removeEventListener("keydown", this);
+    let formulario =
+      '<form action="crucigrama.php" method="post"><input type="hidden" name="tiempo" value="' +
+      this.calculate_date_difference() +
+      '"><input type="hidden" name="nivel" value="' +
+      this.dificultad_seleccionada +
+      '"><label for="nombre">Nombre:</label><input type="text" name="nombre" id="nombre"><label for="apellidos">Apellidos:</label><input type="text" name="apellidos" id="apellidos"><button type="submit">Guardar Record</button></form>';
+    document.querySelector("main").innerHTML = formulario;
+  }
+
   checkRow(rowIndex, colIndex, number) {
     let c = 1;
-    while (colIndex + c < this.columnas &&this.board[rowIndex][colIndex + c] != undefined) {
+    while (
+      colIndex + c < this.columnas &&
+      this.board[rowIndex][colIndex + c] != undefined
+    ) {
       if (this.board[rowIndex][colIndex + c] == "=") {
         this.board[rowIndex][colIndex] = number;
         this.first_number = this.board[rowIndex][colIndex + (c - 3)];
@@ -190,9 +214,8 @@ class Crucigrama {
           this.expresion,
           this.second_number,
         ];
-        if(expresionArray.includes(0)){
+        if (expresionArray.includes(0)) {
           return true;
-          //this.checkColumn(rowIndex, colIndex, number);
         }
         if (eval(expresionArray.join("")) == this.result) {
           return true;
@@ -208,7 +231,10 @@ class Crucigrama {
 
   checkColumn(rowIndex, colIndex, number) {
     let c = 1;
-    while (rowIndex + c < this.filas && this.board[rowIndex + c][colIndex] != undefined) {
+    while (
+      rowIndex + c < this.filas &&
+      this.board[rowIndex + c][colIndex] != undefined
+    ) {
       if (this.board[rowIndex + c][colIndex] == "=") {
         this.board[rowIndex][colIndex] = number;
         this.first_number = this.board[rowIndex + (c - 3)][colIndex];
@@ -220,7 +246,7 @@ class Crucigrama {
           this.expresion,
           this.second_number,
         ];
-        if(expresionArray.includes(0)){
+        if (expresionArray.includes(0)) {
           return true;
         }
         if (eval(expresionArray.join("")) == this.result) {
@@ -249,7 +275,7 @@ class Crucigrama {
 
   calculate_date_difference() {
     let time_spend = new Date(this.end_time - this.init_time);
-    return time_spend/1000;
+    return time_spend / 1000;
   }
 }
 

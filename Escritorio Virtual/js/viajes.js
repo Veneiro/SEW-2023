@@ -1,7 +1,8 @@
 class Viajes {
-  button1 = $("button:eq(0)");
-  button2 = $("button:eq(1)");
-  button3 = $("button:eq(2)");
+  button1 = $("button:eq(2)");
+  button2 = $("button:eq(3)");
+  button3 = $("button:eq(4)");
+  lugares = [];
 
   constructor() {
     $(this.init.bind(this));
@@ -12,14 +13,18 @@ class Viajes {
     this.button1.on("click", this.verTodo.bind(this));
     this.button2.on("click", this.getMapaEstaticoGoogle.bind(this));
     this.button3.on("click", this.initMap.bind(this));
-    $('input[type="file"]').eq(0).on('change', function (e) {
-      miPosicion.cargarXML(e.target);
-    });
-    $('input[type="file"]').eq(1).on('change', function (e) {
-      miPosicion.loadKML(e.target);
-    });
-    $('input[type="file"]:eq(2)').on('change', function (e) {
-      miPosicion.readAndRenderSVG(e.target);
+    $('input[type="file"]')
+      .eq(0)
+      .on("change", function (e) {
+        miPosicion.cargarXML(e.target);
+      });
+    $('input[type="file"]')
+      .eq(1)
+      .on("change", function (e) {
+        miPosicion.loadKML(e.target.files);
+      });
+    $('input[type="file"]:eq(2)').on("change", function (e) {
+      miPosicion.readAndRenderSVG(e.target.files);
     });
   }
   getPosicion(posicion) {
@@ -60,7 +65,7 @@ class Viajes {
   }
   verTodo() {
     const s = document.createElement("article");
-    s.innerHTML = "<h3>Mi Posición Actual</h3>"
+    s.innerHTML = "<h3>Mi Posición Actual</h3>";
     var section = document.querySelector("section");
     var datos = "<p>" + this.mensaje + "</p>";
     datos += "<p>Longitud: " + this.longitud + " grados</p>";
@@ -81,7 +86,7 @@ class Viajes {
   getMapaEstaticoGoogle() {
     const s = document.createElement("article");
     var section = document.querySelector("section");
-    s.innerHTML = "<h3>Mapa Estático</h3>"
+    s.innerHTML = "<h3>Mapa Estático</h3>";
     var apiKey = "&key=AIzaSyC6j4mF6blrc4kZ54S6vYZ2_FpMY9VzyRU";
     var url = "https://maps.googleapis.com/maps/api/staticmap?";
     var centro = "center=" + this.latitud + "," + this.longitud;
@@ -99,11 +104,14 @@ class Viajes {
 
   initMap() {
     var centro = { lat: this.latitud, lng: this.longitud };
-    var mapaGeoposicionado = new google.maps.Map(document.querySelector("section"), {
-      zoom: 8,
-      center: centro,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
+    var mapaGeoposicionado = new google.maps.Map(
+      document.querySelector("section"),
+      {
+        zoom: 8,
+        center: centro,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+      }
+    );
 
     var infoWindow = new google.maps.InfoWindow();
     if (navigator.geolocation) {
@@ -111,11 +119,11 @@ class Viajes {
         function (position) {
           var pos = {
             lat: position.coords.latitude,
-            lng: position.coords.longitude
+            lng: position.coords.longitude,
           };
 
           infoWindow.setPosition(pos);
-          infoWindow.setContent('Localización encontrada');
+          infoWindow.setContent("Localización encontrada");
           infoWindow.open(mapaGeoposicionado);
           mapaGeoposicionado.setCenter(pos);
         },
@@ -130,52 +138,92 @@ class Viajes {
   }
 
   initMapPlanimetría() {
-    var oviedo = { lat: 43.3672702, lng: -5.8502461 };
-    var mapaOviedo = new google.maps.Map(document.querySelector("section"), {
-        zoom: 8,
-        center: oviedo,
+    var Bruselas = { lat: 50.85045, lng: 4.34878 };
+    var mapaBruselas = new google.maps.Map(document.querySelector("section"), {
+      zoom: 8,
+      center: Bruselas,
     });
 
-    this.lugares.forEach(function (place) {
-        var coords = place.map(Number); // Convierte las coordenadas a números        
+    // Verifica si hay coordenadas antes de iterar
+    if (this.lugares.length > 0) {
+      // Objeto para almacenar colores asociados a cada archivo KML
+      var colorPorKML = {};
+
+      this.lugares.forEach(function (place, index) {
+        var coords = place.map(Number); // Convierte las coordenadas a números
         var livingIn = { lat: coords[1], lng: coords[0] }; // Orden corregido: latitud, longitud
+
+        // Obtiene el color asociado al archivo KML actual o genera uno nuevo
+        var kmlFileName = place.fileName; // Suponiendo que tienes el nombre del archivo en el conjunto de puntos
+        var markerColor =
+          colorPorKML[kmlFileName] || miPosicion.getRandomColor();
+
+        // Almacena el color en el objeto colorPorKML
+        colorPorKML[kmlFileName] = markerColor;
+
         var marcador = new google.maps.Marker({
-            position: livingIn,
-            map: mapaOviedo,
+          position: livingIn,
+          map: mapaBruselas,
+          icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            fillColor: markerColor,
+            fillOpacity: 1.0,
+            strokeColor: "#ffffff", // Borde blanco
+            strokeWeight: 2,
+            scale: 8, // Tamaño del círculo
+          },
         });
-    });
+      });
+    }
   }
 
-  processData(data) {
+  getRandomColor() {
+    var letters = "0123456789ABCDEF";
+    var color = "#";
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  processData(data, fileName) {
     var coordenadas = [];
 
     var parser = new DOMParser();
     var dom = parser.parseFromString(data, "text/xml");
-    var placemarks = dom.querySelectorAll('Placemark');
+    var placemarks = dom.querySelectorAll("Placemark");
 
     placemarks.forEach((placemark) => {
-        var coordinatesElement = placemark.querySelector('coordinates');
-        if (coordinatesElement) {
-            var coordinates = coordinatesElement.textContent.trim().split(",");
-            coordenadas.push(coordinates);
-        }
+      var coordinatesElement = placemark.querySelector("coordinates");
+      if (coordinatesElement) {
+        var coordinates = coordinatesElement.textContent.trim().split(",");
+        // Añade el nombre del archivo KML a cada conjunto de puntos
+        coordinates.fileName = fileName;
+        coordenadas.push(coordinates);
+      }
     });
 
-    this.lugares = coordenadas;
+    // Agregar las nuevas coordenadas a las existentes
+    this.lugares = this.lugares.concat(coordenadas);
     this.initMapPlanimetría();
   }
 
+  loadKML(inputFiles) {
+    const filesArray = Array.from(inputFiles);
 
-  loadKML(input) {
-    var archive = input.files[0];
-    var reader = new FileReader();
-
-    if (archive.name) {
-      reader.onload = (e) => this.processData(reader.result);
-      reader.readAsText(archive);
-    } else {
-      $("main").text("El archivo seleccionado no es de un tipo válido");
+    if (inputFiles.length === 0) {
+      console.error("No se han seleccionado archivos.");
+      return;
     }
+
+    // Iterar sobre los archivos
+    filesArray.forEach((file) => {
+      var reader = new FileReader();
+
+      reader.onload = (e) => this.processData(reader.result, file.name);
+
+      reader.readAsText(file);
+    });
   }
 
   cargarXML(inputFile) {
@@ -257,7 +305,9 @@ class Viajes {
               let nombreHito = $hito.find("nombreHito").text();
               let descripcionHito = $hito.find("descripcionHito").text();
               let coordenadasHito = $hito.find("coordenadasHito");
-              let distanciaAnteriorHito = $hito.find("distanciaAnteriorHito").text();
+              let distanciaAnteriorHito = $hito
+                .find("distanciaAnteriorHito")
+                .text();
               let fotosHito = $hito.find("fotos foto");
               let videosHito = $hito.find("videos video");
 
@@ -278,7 +328,7 @@ class Viajes {
               if (fotosHito.length > 0) {
                 contenidoRuta += "<p>Fotos del Hito:</p><ul>";
                 fotosHito.each(function () {
-                  contenidoRuta += `<li>${$(this).text()}</li>`;
+                  contenidoRuta += `<li> Image: ${$(this).text()} </li>`;
                 });
                 contenidoRuta += "</ul>";
               }
@@ -287,7 +337,7 @@ class Viajes {
               if (videosHito.length > 0) {
                 contenidoRuta += "<p>Videos del Hito:</p><ul>";
                 videosHito.each(function () {
-                  contenidoRuta += `<li>${$(this).text()}</li>`;
+                  contenidoRuta += `<li> Video: ${$(this).text()}</li>`;
                 });
                 contenidoRuta += "</ul>";
               }
@@ -309,36 +359,68 @@ class Viajes {
     }
   }
 
-  readAndRenderSVG(inputElement) {
-    const file = inputElement.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-
-      reader.onload = function (e) {
-        const svgText = e.target.result;
-        // Llama a renderSVG con el texto del SVG y el contenedor
-        this.renderSVG(svgText, document.querySelector("section"));
-      }.bind(this); // Asegura que "this" sea la instancia correcta de Viajes
-
-      reader.readAsText(file);
-    } else {
-      console.error('No se ha seleccionado ningún archivo.');
+  readAndRenderSVG(inputFiles) {
+    const container = document.querySelector("section");
+    container.innerHTML = "";
+    for (let i = 0; i < inputFiles.length; i++) {
+      if (inputFiles[i]) {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+          let svg = e.target.result;
+          container.innerHTML += svg;
+        };
+        reader.readAsText(inputFiles[i]);
+      }
     }
   }
 
+  initCarousel() {
+    const slides = document.querySelectorAll("img");
 
-  // Este método renderiza el SVG en un contenedor específico
-  renderSVG(svgText, container) {
-    // Crear un elemento div para contener el SVG
-    const svgContainer = document.createElement('p');
+    // select next slide button
+    const nextSlide = document.querySelector("button[data-action='next']");
 
-    // Agregar el SVG al contenedor div
-    svgContainer.innerHTML = svgText;
+    // current slide counter
+    let curSlide = 3;
+    // maximum number of slides
+    let maxSlide = slides.length - 1;
 
-    // Agregar el contenedor div al contenedor principal en tu página HTML
-    container.appendChild(svgContainer);
+    // add event listener and navigation functionality
+    nextSlide.addEventListener("click", function () {
+      // check if current slide is the last and reset current slide
+      if (curSlide === maxSlide) {
+        curSlide = 0;
+      } else {
+        curSlide++;
+      }
+
+      //   move slide by -100%
+      slides.forEach((slide, indx) => {
+        var trans = 100 * (indx - curSlide);
+        $(slide).css("transform", "translateX(" + trans + "%)");
+      });
+    });
+
+    // select next slide button
+    const prevSlide = document.querySelector("button[data-action='prev']");
+
+    // add event listener and navigation functionality
+    prevSlide.addEventListener("click", function () {
+      // check if current slide is the first and reset current slide to last
+      if (curSlide === 0) {
+        curSlide = maxSlide;
+      } else {
+        curSlide--;
+      }
+
+      //   move slide by 100%
+      slides.forEach((slide, indx) => {
+        var trans = 100 * (indx - curSlide);
+        $(slide).css("transform", "translateX(" + trans + "%)");
+      });
+    });
   }
 }
 
 var miPosicion = new Viajes();
+miPosicion.initCarousel();

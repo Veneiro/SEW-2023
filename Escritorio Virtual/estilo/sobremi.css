@@ -3,6 +3,7 @@ ul li:nth-child(3) {
     color: red;
 }
 
+/* Especificidad 001 */
 img {
     border-radius: 1.5em;
     margin: 1em;
@@ -21,11 +22,13 @@ audio {
     padding-top: 1.5em;
 }
 
+/* Especificidad 001 */
 ul {
     background-color: rgba(0, 0, 0, 0.329);
     border-radius: 1em;
 }
 
+/* Especificidad 001 */
 ol {
     background-color: rgba(0, 0, 0, 0.329);
     border-radius: 1em;

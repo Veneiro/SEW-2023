@@ -1,8 +1,11 @@
+/* Especificidad 001 */
 main{
     display:grid;
     grid-template-columns: repeat(9, 1fr);
 }
-p{
+ 
+/* Especificidad 001 */
+p {
     margin:0em;
     height:2em;
     border-width: 0.1em;
@@ -11,10 +14,12 @@ p{
     text-align: center;
 }
 
+/* Especificidad 010 */
 [data-state = "empty"]{
     background-color: black;
 }
 
+/* Especificidad 010 */
 [data-state = "clicked"]{
     border-color: red;
 }

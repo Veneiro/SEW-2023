@@ -16,7 +16,7 @@ header {
     background-color: #282a3f;
     border-radius: 2em;
     padding: 1em;
-    align-items: center;
+    align-items: center; 
     justify-content: space-around;
 }
 

@@ -34,14 +34,10 @@
                 <coordenadasHito lat="50.90445196368657" long="3.0106864040486663" ele="48.0"></coordenadasHito>
                 <distanciaAnteriorHito>0Km</distanciaAnteriorHito>
                 <fotos>
-                    <foto></foto>
-                    <foto></foto>
-                    <foto></foto>
+                    <foto>./multimedia/imagenes/cementery.jpg</foto>
                 </fotos>
                 <videos>
-                    <video></video>
-                    <video></video>
-                    <video></video>
+                    <video>./multimedia/videos/cementery.mp4</video>
                 </videos>
             </hito>
             <hito>
@@ -52,14 +48,10 @@
                 <coordenadasHito lat="50.852053" long="2.89107" ele="22.8"></coordenadasHito>
                 <distanciaAnteriorHito>11.0</distanciaAnteriorHito>
                 <fotos>
-                    <foto></foto>
-                    <foto></foto>
-                    <foto></foto>
+                    <foto>./multimedia/imagenes/flores.jepg</foto>
                 </fotos>
                 <videos>
-                    <video></video>
-                    <video></video>
-                    <video></video>
+                    <video>./multimedia/videos/flores.mp4</video>
                 </videos>
             </hito>
             <hito>
@@ -78,14 +70,10 @@
                 <coordenadasHito lat="50.874300151859174" long="3.453939947997965" ele="34.5"></coordenadasHito>
                 <distanciaAnteriorHito>46.0</distanciaAnteriorHito>
                 <fotos>
-                    <foto></foto>
-                    <foto></foto>
-                    <foto></foto>
+                    <foto>./multimedia/imagenes/menin.jpg</foto>
                 </fotos>
                 <videos>
-                    <video></video>
-                    <video></video>
-                    <video></video>
+                    <video>./multimedia/videos/menin.mp4</video>
                 </videos>
             </hito>
         </hitos>
@@ -140,14 +128,10 @@
                 <coordenadasHito lat="51.20827540039973" long="3.226620028760691" ele="12.0"></coordenadasHito>
                 <distanciaAnteriorHito>0.12</distanciaAnteriorHito>
                 <fotos>
-                    <foto></foto>
-                    <foto></foto>
-                    <foto></foto>
+                    <foto>./multimedia/imagenes/basilica.jpg</foto>
                 </fotos>
                 <videos>
-                    <video></video>
-                    <video></video>
-                    <video></video>
+                    <video>./multimedia/videos/basilica.mp4</video>
                 </videos>
             </hito>
             <hito>
@@ -159,14 +143,10 @@
                 <coordenadasHito lat="51.20538342403609" long="3.2255953479023542" ele="6.6"></coordenadasHito>
                 <distanciaAnteriorHito>4.8</distanciaAnteriorHito>
                 <fotos>
-                    <foto></foto>
-                    <foto></foto>
-                    <foto></foto>
+                    <foto>./multimedia/imagenes/jinetes.jpg</foto>
                 </fotos>
                 <videos>
-                    <video></video>
-                    <video></video>
-                    <video></video>
+                    <video>./multimedia/videos/jinetes.mp4</video>
                 </videos>
             </hito>
             <hito>
@@ -178,14 +158,10 @@
                 <coordenadasHito lat="51.20533385058857" long="3.2251190210485476" ele="8.1"></coordenadasHito>
                 <distanciaAnteriorHito>0.6</distanciaAnteriorHito>
                 <fotos>
-                    <foto></foto>
-                    <foto></foto>
-                    <foto></foto>
+                    <foto>./multimedia/imagenes/gruu.jpg</foto>
                 </fotos>
                 <videos>
-                    <video></video>
-                    <video></video>
-                    <video></video>
+                    <video>./multimedia/videos/gruu.mp4</video>
                 </videos>
             </hito>
         </hitos>
@@ -226,14 +202,10 @@
                 <coordenadasHito lat="51.22032933543427" long="4.401511765056756" ele="15.9"></coordenadasHito>
                 <distanciaAnteriorHito>45.4</distanciaAnteriorHito>
                 <fotos>
-                    <foto></foto>
-                    <foto></foto>
-                    <foto></foto>
+                    <foto>./multimedia/imagenes/catedral.jpg</foto>
                 </fotos>
                 <videos>
-                    <video></video>
-                    <video></video>
-                    <video></video>
+                    <video>./multimedia/videos/catedral.mp4</video>
                 </videos>
             </hito>
             <hito>
@@ -242,14 +214,10 @@
                 <coordenadasHito lat="51.22138110692651" long="4.3998864611372435" ele="17.2"></coordenadasHito>
                 <distanciaAnteriorHito>0.4</distanciaAnteriorHito>
                 <fotos>
-                    <foto></foto>
-                    <foto></foto>
-                    <foto></foto>
+                    <foto>./multimedia/imagenes/plaza.jpg</foto>
                 </fotos>
                 <videos>
-                    <video></video>
-                    <video></video>
-                    <video></video>
+                    <video>./multimedia/videos/plaza.mp4</video>
                 </videos>
             </hito>
             <hito>
@@ -265,14 +233,10 @@
                 <coordenadasHito lat="51.21734849432043" long="4.421225869061184" ele="26.3"></coordenadasHito>
                 <distanciaAnteriorHito>2.8</distanciaAnteriorHito>
                 <fotos>
-                    <foto></foto>
-                    <foto></foto>
-                    <foto></foto>
+                    <foto>./multimedia/imagenes/estacion.jpg</foto>
                 </fotos>
                 <videos>
-                    <video></video>
-                    <video></video>
-                    <video></video>
+                    <video>./multimedia/videos/estacion.mp4</video>
                 </videos>
             </hito>
         </hitos>

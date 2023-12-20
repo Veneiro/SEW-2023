@@ -17,7 +17,7 @@ def buscar_terminos(directorio, extensiones, terminos):
                             print('---')
 
 if __name__ == '__main__':
-    directorio = 'C:/Users/Mateo/Documents/GitHub/PRACTICA-3/ProyectoSEW'  # Reemplaza con la ruta del directorio que deseas explorar
+    directorio = 'C:/Users/Mateo/Documents/GitHub/SEW-2023/Escritorio Virtual'  # Reemplaza con la ruta del directorio que deseas explorar
     extensiones = ['.html', '.js', '.css', '.php']  # Reemplaza con las extensiones de archivo que deseas buscar
     terminos = []
 

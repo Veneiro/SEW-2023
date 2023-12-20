@@ -36,5 +36,5 @@
 <!ELEMENT distanciaAnteriorHito (#PCDATA)>
 <!ELEMENT fotos (foto+)>
 <!ELEMENT videos (video+)>
-<!ELEMENT foto EMPTY>
-<!ELEMENT video EMPTY>
+<!ELEMENT foto (#PCDATA)>
+<!ELEMENT video (#PCDATA)>

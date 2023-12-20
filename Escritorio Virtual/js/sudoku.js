@@ -85,6 +85,8 @@ class Sudoku {
           this.introduceNumber(9);
           break;
       }
+    } else {
+      alert("Primero selecciona la casilla para introducir el numero");
     }
   }
 
