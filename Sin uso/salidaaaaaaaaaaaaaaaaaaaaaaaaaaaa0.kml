@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Document>
+<Placemark>
+<name> Tour desde Brujas </name>
+<description> Paisajística e Histórica - Minibus </description>
+<Point>
+<coordinates>
+ 3.219436,51.198006
+</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name> Passchendaele New British Cemetery </name>
+<description> Cementerio de la Primera Guerra Mundial </description>
+<Point>
+<coordinates>
+ 3.0106864040486663,50.90445196368657
+</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name> Puerta de Menin </name>
+<description> La Puerta de Menin es un monumento de guerra en Ypres, Bélgica
+                    dedicado a los soldados británicos y de la Commonwealth que murieron en el
+                    saliente de Ypres en la Primera Guerra Mundial y cuyas tumbas son desconocidas </description>
+<Point>
+<coordinates>
+ 2.89107,50.852053
+</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name> Campos de Amapolas de Flandes </name>
+<description> De 1914 a 1918, los Campos de Flanders fueron un importante
+                    escenario de batalla en el Frente occidental durante la Primera Guerra
+                    Mundial. Aquí, en el fragor de la batalla, un millón de soldados de más de 50
+                    países diferentes resultaron heridos, desaparecidos o muertos. Ciudades y
+                    pueblos enteros fueron destruidos, su población se tuvo que dispersar por Europa
+                    y más allá. La destrucción de la ciudad de Ypres y las condiciones brutales
+                    soportadas durante la Batalla de Passchendaele (Tercera Batalla de Ypres) se
+                    convirtieron en símbolos mundiales del poco sentido que tenía la guerra. Hoy, la
+                    región pacífica sigue siendo testigo de esta historia a través de sus
+                    monumentos, museos, cementerios y las innumerables historias individuales que la
+                    vinculan con el mundo. </description>
+<Point>
+<coordinates>
+ 3.453939947997965,50.874300151859174
+</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name> Campos de Amapolas de Flandes </name>
+<description> Paisajística e Histórica - Minibus </description>
+<LineString>
+<extrude>1</extrude>
+<tessellate>1</tessellate>
+<width>2</width><coordinates>
+ 3.219436,51.198006 3.0106864040486663,50.90445196368657 2.89107,50.852053 3.453939947997965,50.874300151859174 
+</coordinates>
+</LineString>
+</Placemark>
+</Document>
+</kml>

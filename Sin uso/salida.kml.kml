@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Document>
+<Placemark>
+<name> Tour desde Brujas </name>
+<description> Paisajística e Histórica - Minibus </description>
+<Point>
+<coordinates>
+ 51.198006,3.219436
+</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name> Crucero por Brujas </name>
+<description> Arquitectura y Monumentos - Barco </description>
+<Point>
+<coordinates>
+ 51.209129,
+</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name> Tour de Amberes </name>
+<description> Paisajística e Histórica - Minibus </description>
+<Point>
+<coordinates>
+ 50.847141,4.353149
+</coordinates>
+</Point>
+</Placemark>
+</Document>
+</kml>
