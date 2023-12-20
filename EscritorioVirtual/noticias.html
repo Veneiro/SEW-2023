@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+
+<html lang="es">
+
+<head>
+    <!-- Datos que describen el documento -->
+    <meta charset="UTF-8" />
+    <title>Escritorio Virtual - Noticias</title>
+    <meta name="author" content="Mateo Rico Iglesias" />
+    <meta name="description" content="Pagina de noticias" />
+    <meta name="keywords"
+        content="noticias, universidad, archivos" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="estilo/estilo.css" />
+    <link rel="stylesheet" type="text/css" href="estilo/layout.css" />
+    <link rel="stylesheet" type="text/css" href="estilo/noticias.css" />
+    <link rel="icon" href="multimedia/imagenes/favicon.ico" />
+</head>
+
+<body>
+    <header>
+        <h1>Escritorio Virtual</h1>
+        <nav>
+            <a href="./index.html" accesskey="P" tabindex="1">Página Principal</a>
+            <a href="./sobremi.html" accesskey="S" tabindex="7">Sobre Mí</a>
+            <a href="./noticias.html" accesskey="N" tabindex="2">Noticias</a>
+            <a href="./agenda.html" accesskey="A" tabindex="6">Agenda</a>
+            <a href="./meteorologia.html" accesskey="M" tabindex="4">Meteorología</a>
+            <a href="./viajes.php" accesskey="V" tabindex="3">Viajes</a>
+            <a href="./juegos.html" accesskey="J" tabindex="5">Juegos</a>
+        </nav>
+    </header>
+    <!-- Datos con el contenidos que aparece en el navegador -->
+    <h2>Noticias</h2>
+    <section>
+        <h3>Seleccione un archivo de texto:</h3>
+        <label for="archivoTexto">Archivo de Texto:</label>
+        <input type="file" id="archivoTexto">
+    </section>
+    <script src="./js/noticias.js"></script>
+</body>
+
+</html>

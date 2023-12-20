@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Document>
+<Placemark>
+<name> Tour de Amberes </name>
+<description> Paisajística e Histórica - Minibus </description>
+<Point>
+<coordinates>
+ 4.353126674527717,50.847188137471264
+</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name> Catedral de Nuestra Señora </name>
+<description> Catedral gótica con un chapitel emblemático y conocida por las
+                    obras maestras barrocas de Rubens que alberga. </description>
+<Point>
+<coordinates>
+ 4.401511765056756,51.22032933543427
+</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name> Plaza del mercado </name>
+<description> Plaza llena de edificios antigüos </description>
+<Point>
+<coordinates>
+ 4.3998864611372435,51.22138110692651
+</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name> Estación Central de Amberes </name>
+<description> El edificio original de la estación fue construido entre 1895 y
+                    1905 en reemplazo del anterior edificio que servía de estación terminal de la
+                    línea ferroviaria Bruselas-Malinas-Amberes y que había sido inaugurada el 3 de
+                    mayo de 1836. El edificio revestido en piedra y que posee una amplia cúpula
+                    sobre la sala de espera fue diseñado por Luis Delacenserie y la estructura de
+                    185 metros de largo y 44 metros de altura de hierro y vidrio que cubre las vías
+                    por Clemente van Bogaert. El viaducto en la estación es también una estructura
+                    notable diseñada por el arquitecto Jan Van Asperen. </description>
+<Point>
+<coordinates>
+ 4.421225869061184,51.21734849432043
+</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name> Estación Central de Amberes </name>
+<description> Paisajística e Histórica - Minibus </description>
+<LineString>
+<extrude>1</extrude>
+<tessellate>1</tessellate>
+<width>2</width><coordinates>
+ 4.353126674527717,50.847188137471264 4.401511765056756,51.22032933543427 4.3998864611372435,51.22138110692651 4.421225869061184,51.21734849432043 
+</coordinates>
+</LineString>
+</Placemark>
+</Document>
+</kml>

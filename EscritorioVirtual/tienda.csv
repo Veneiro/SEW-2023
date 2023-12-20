@@ -1,0 +1,44 @@
+﻿cliente_dni,videojuego_referencia,dia_comprado
+53522342P,000X,2023-12-19 00:48:00
+53522342P,001X,2023-12-18 23:53:46
+
+id,tipo
+AR,Arcade
+PL,Plataformas
+SH,Shooter
+HS,Heroe Shooter
+MA,Mundo Abierto
+AC,Acción
+DE,Deportes
+TE,Terror
+
+dni,nombre,apellidos,email,telefono
+53522342P,Mateo,Rico Iglesias,UO277172@uniovi.es,636557454
+
+referencia,titulo,genero_id,director,distribuidora,desarrolladora,portada,ha_ganado_goty
+000X,Overwatch,HS,Aaron Keller,Blizzard,Blizzard,./multimedia/imagenes/overwatch.jpg,1
+001X,Metal Slug,AR,SNK,SNK,SNK,./multimedia/imagenes/metal_slug.jpg,0
+002X,Grand Theft Auto V,MA,Steve Martin,Rockstar Games,Rockstar North,./multimedia/imagenes/gtav.jpg,1
+003X,Horizon Zero Dawn,MA,Mathijs de Jonge,Sony Interactive Entertainment,Guerrilla Games,./multimedia/imagenes/horizon.jpg,0
+004X,Alien Isolation,TE,Alistair Hope,Sega 20th Century Fox,The Creative Assembly,./multimedia/imagenes/alien.jpg,0
+005X,Call of Duty: Black Ops 3,SH,Jason Blundel,Activision,Treyarch,./multimedia/imagenes/bo3.jpg,0
+006X,BioShock,AC,Ken Levine,2K Games,2K Boston,./multimedia/imagenes/bioshock.jpg,1
+007X,FIFA 23,DE,EA,EA,EA Canada,./multimedia/imagenes/fifa.jpg,0
+008X,Sea Of Thieves,AC,Gregg Mayles,Xbox Game Studios,Rare,./multimedia/imagenes/piratas.jpg,0
+009X,Red Dead Redemption,MA,Kevin Hoare / Rod Edge,Rockstar Games,Rockstar San Diego,./multimedia/imagenes/rdr.jpg,1
+010X,The Legend of Zelda: BOTW,AC,Hidemaro Fujibayashi,Nintendo,Nintendo Entertainment Planning and Development,./multimedia/imagenes/botw.jpg,1
+011X,Mario Bros Wii,PL,Shigeyuki Asuke,Nintendo,Nintendo Entertainment Analysis and Development,./multimedia/imagenes/mario_bros.jpg,0
+
+nombre,fundación,empleados,web
+Blizzard,1991,4600,www.blizzard.com
+SNK,1978,199,www.snk-corp.co.jp
+Rockstar North,1988,N,www.rockstarnorth.com
+Guerrilla Games,2000,1920,www.guerrilla-games.com
+The Creative Assembly,1987,550,www.creative-assembly.com
+Treyarch,1996,250,www.treyarch.com
+2K Boston,1997,N,www.ghoststorygames.com
+EA Canada,1983,3000,www.ea.com/careers/locations?modal-id=vancouver
+Rare,1985,200,www.rare.co.uk
+Rockstar San Diego,1984,N,www.rockstarsandiego.com
+Nintendo Entertainment Planning and Development,2015,N,nintendo.com
+Nintendo Entertainment Analysis and Development,1983,500,Nintendo.co.jp

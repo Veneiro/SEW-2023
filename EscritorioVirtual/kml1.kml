@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Document>
+<Placemark>
+<name> Crucero por Brujas </name>
+<description> Arquitectura y Monumentos - Barco </description>
+<Point>
+<coordinates>
+ 3.224689188301902,51.20894096503173
+</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name> Basílica de Santa Sangre </name>
+<description> La Basílica de Santa Sangre es una basílica menor de culto católico
+                    ubicada en Brujas, Bélgica. Construida originalmente en el siglo xii como
+                    capilla de la residencia del conde de Flandes, la iglesia alberga una venerada
+                    reliquia de la sangre de Cristo, supuestamente recogida por José de Arimatea y
+                    traída de Tierra Santa por Teodorico de Alsacia, conde de Flandes. Construida
+                    entre 1134 y 1157, fue consagrada como basílica menor en 1923. La basílica, del
+                    siglo xii, está situada en la Plaza Burg, y consiste en una capilla inferior y
+                    otra superior. La capilla inferior, dedicada a San Basilio el Grande, es una
+                    oscura estructura románica que se mantiene prácticamente en estado original. La
+                    reliquia se encuentra en la capilla superior, reconstruida en estilo gótico
+                    durante el siglo xvi, y renovada numerosas veces durante el siglo xix en estilo
+                    neogótico. </description>
+<Point>
+<coordinates>
+ 3.226620028760691,51.20827540039973
+</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name> Los Cuatro jinetes del Apocalipsis </name>
+<description> Estas esculturas fueron creadas por Rik Poot, y es él el que nombró
+                    en este caso, como La Revolución al Jinete blanco, ya que se consideran
+                    diferentes opciones para este. Hay varias teorías que tienen un punto de vista
+                    más positivo y lo ven como la Esperanza o Jesucristo como tal. </description>
+<Point>
+<coordinates>
+ 3.2255953479023542,51.20538342403609
+</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name> Museo Gruuthuse </name>
+<description> El Museo Gruuthuse es un museo situado en la ciudad belga de Brujas
+                    , ubicado en una antigua mansión del xv ° siglo, los señores de Gruuthuse, y
+                    tiene la colección más diversa de artes aplicadas y artes decorativas de Brujas
+                    el xiii ª a la xix XX siglo. </description>
+<Point>
+<coordinates>
+ 3.2251190210485476,51.20533385058857
+</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name> Museo Gruuthuse </name>
+<description> Arquitectura y Monumentos - Barco </description>
+<LineString>
+<extrude>1</extrude>
+<tessellate>1</tessellate>
+<width>2</width><coordinates>
+ 3.224689188301902,51.20894096503173 3.226620028760691,51.20827540039973 3.2255953479023542,51.20538342403609 3.2251190210485476,51.20533385058857 
+</coordinates>
+</LineString>
+</Placemark>
+</Document>
+</kml>
